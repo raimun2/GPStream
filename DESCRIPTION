@@ -31,3 +31,6 @@ Imports:
     sp,
     stats,
     tibble
+Remotes:
+    git::https://github.com/fawda123/rStrava,
+    git::https://github.com/grimbough/FITfileR
