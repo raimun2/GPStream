@@ -1,8 +1,12 @@
-# https://postgis.net/docs/ST_MakePolygon.html
-# http://postgis.net/docs/ST_Contains.html
-# select ST_LineFromEncodedPolyline(json_data->'map'->>'polyline')
-# from challenge_activity limit 1;
-
+#' Title
+#'
+#' @param data a stream
+#' @param route another stream
+#' @param tolerance thershold
+#'
+#' @return
+#' @export
+#'
 match_stream <- function(data, route, tolerance = 20){
 
   # extrae bbox ruta
@@ -56,4 +60,10 @@ match_stream <- function(data, route, tolerance = 20){
   }
 
 }
+
+
+# https://postgis.net/docs/ST_MakePolygon.html
+# http://postgis.net/docs/ST_Contains.html
+# select ST_LineFromEncodedPolyline(json_data->'map'->>'polyline')
+# from challenge_activity limit 1;
 

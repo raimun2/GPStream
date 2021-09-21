@@ -1,3 +1,13 @@
+#' Title
+#'
+#' @param data dataframe or tibble containing a GPS stream
+#' @param alpha smoothing parameter
+#' @param interpolate binary
+#'
+#' @return
+#' @export
+#'
+
 smooth_stream<-function(data, alpha = 0.05, interpolate = FALSE){
 
   # generate model for lon, lat and ele in function of time
@@ -25,9 +35,9 @@ smooth_stream<-function(data, alpha = 0.05, interpolate = FALSE){
   } else{ # if interpolate, generate interpolated route with 1 second difference between points
 
     smoothActivity <- data.frame("time"=1:(max(data$time)/60))*60
-    smoothActivity$lon <- predict(lonmodel,smoothActivity$time)
-    smoothActivity$lat <- predict(latmodel,smoothActivity$time)
-    smoothActivity$ele <- predict(elemodel,smoothActivity$time)
+    smoothActivity$lon <- stats::predict(lonmodel,smoothActivity$time)
+    smoothActivity$lat <- stats::predict(latmodel,smoothActivity$time)
+    smoothActivity$ele <- stats::predict(elemodel,smoothActivity$time)
     smoothActivity <- smoothActivity[,c("lon","lat","ele","time")]
     return(smoothActivity) # return interpolated dataframe
 

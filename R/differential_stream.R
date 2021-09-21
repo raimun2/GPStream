@@ -1,3 +1,10 @@
+#' Title
+#'
+#' @param data dataframe or tibble containing a GPS stream
+#'
+#' @return
+#' @export
+#'
 differential_stream <- function(data){
 
   # previous lon / lat

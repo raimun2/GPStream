@@ -1,3 +1,11 @@
+#' Write GPX file from data stream
+#'
+#' @param stream data stream
+#' @param file name of the file
+#'
+#' @return
+#' @export
+#'
 writeGPX <- function(stream, file="file.gpx"){
   # Write gpx data to a new file.
   lat <- stream$lat

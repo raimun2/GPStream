@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param data dataframe or tibble containing a GPS stream
+#' @param z zoom
+#'
+#' @return
+#' @export
+#'
 ele_correction_point <- function(data, z = 13){
   # define map projection
   ll_prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
@@ -17,6 +25,14 @@ ele_correction_point <- function(data, z = 13){
 #rast <- try(raster::getData("alt", country = country, download = TRUE, mask = mask))
 
 
+#' Title
+#'
+#' @param data dataframe or tibble containing a GPS stream
+#' @param z zoom
+#'
+#' @return
+#' @export
+#'
 ele_correction_raster <- function(data, z = 13){
   # define map projection
   ll_prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
@@ -36,6 +52,15 @@ ele_correction_raster <- function(data, z = 13){
   return(data)
 }
 
+#' Title
+#'
+#' @param data dataframe or tibble containing a GPS stream
+#' @param raster raster object with elevations
+#' @param z zoom
+#'
+#' @return
+#' @export
+#'
 ele_correction_raster_local <- function(data, raster, z = 13){
   # define map projection
   ll_prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
@@ -57,6 +82,15 @@ ele_correction_raster_local <- function(data, raster, z = 13){
 
 ## global function if datapoints < 200, retrieve each one, else retrieve raster
 ## if local raster available, extract elevations directly
+#' Title
+#'
+#' @param data dataframe or tibble containing a GPS stream
+#' @param z zoom level
+#' @param raster raster object with elevations
+#'
+#' @return
+#' @export
+#'
 ele_correction <- function(data, z = 13, raster=NULL){
   if(is.null(raster)){
       if(nrow(data)<200){

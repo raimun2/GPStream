@@ -1,3 +1,13 @@
+#' Title
+#'
+#' @param data dataframe or tibble containing a GPS stream
+#' @param size tamaño splits
+#' @param value tiempo o distancia del tamaño
+#' @param windowed si ventanea o no
+#'
+#' @return
+#' @export
+#'
 split_stream = function(data, size = 60, value = "time", windowed = FALSE){
 
   if(windowed){
@@ -19,6 +29,13 @@ split_stream = function(data, size = 60, value = "time", windowed = FALSE){
   return(segmentos)
 }
 
+#' Title
+#'
+#' @param data dataframe or tibble containing a GPS stream
+#'
+#' @return
+#' @export
+#'
 agg_stream <- function(data){
   if(nrow(data)>0){
     segment <- aggregate(cbind(delta_time, delta_distance, dplus, dminus) ~ id_seg, data, sum)
@@ -34,6 +51,14 @@ agg_stream <- function(data){
 }
 
 
+#' Title
+#'
+#' @param data dataframe or tibble containing a GPS stream
+#' @param largo tamaño
+#'
+#' @return
+#' @export
+#'
 rolling_window <- function(data, largo){
 
   windowed_data <- NULL
