@@ -10,6 +10,9 @@ rename_stream(data)
 \item{data}{a dataframe or tibble containing a GPS stream
 rename_stream()}
 }
+\value{
+
+}
 \description{
 rename GPS streams according to convention long, lat, elev, timestamp and time
 }

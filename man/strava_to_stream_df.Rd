@@ -12,6 +12,9 @@ strava_to_stream_df(stoken, nacts = 1)
 \item{nacts}{number of recent activities to get, default is 1, maximum value is 100
 strava_to_stream_df()}
 }
+\value{
+
+}
 \description{
 Gathers GPS streams from Strava's API. returns a list containing the activity stream, and activity summary data
 }

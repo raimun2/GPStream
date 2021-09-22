@@ -2,7 +2,10 @@
 #'
 #' @param data a dataframe or tibble containing a GPS stream
 #' rename_stream()
-
+#'
+#' @return
+#' @export
+#'
 rename_stream <- function(data){
 
   # rename variables as convention long, lat, elev, timestamp
