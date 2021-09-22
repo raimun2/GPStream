@@ -1,11 +1,12 @@
 #' Title
 #'
-#' @param data dataframe or tibble containing a GPS stream
-#' @param z zoom
+#' @param data
+#' @param z
 #'
 #' @return
 #' @export
 #'
+#' @examples
 ele_correction_point <- function(data, z = 13){
   # define map projection
   ll_prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
