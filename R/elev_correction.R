@@ -1,12 +1,16 @@
-#' Title
+#' Elevation correction point replace elevation points for coordinates of a Elevation Model Map and return a GPS stream dataframe with a new columns that shows the difference between original elevation and elevation model map elevation.
+#' The algorithm replace each point of the original stream with coordinates of Digital Elevation Map, then calculate the difference with original elevation in a new variable named 'ele_DEM'.
 #'
-#' @param data
-#' @param z
 #'
-#' @return
+#'
+#'
+#' @param data dataframe or tibble containing a GPS stream.
+#' @param z zoom of Digital Elevation Model Map
+#'
+#' @return dataframe
 #' @export
 #'
-#' @examples
+#'
 ele_correction_point <- function(data, z = 13){
   # define map projection
   ll_prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
@@ -26,10 +30,10 @@ ele_correction_point <- function(data, z = 13){
 #rast <- try(raster::getData("alt", country = country, download = TRUE, mask = mask))
 
 
-#' Title
+#' Elevation correction raster
 #'
-#' @param data dataframe or tibble containing a GPS stream
-#' @param z zoom
+#' @param data dataframe or tibble containing a GPS stream.
+#' @param z zoom of Digital Elevation Model Map
 #'
 #' @return
 #' @export
@@ -53,11 +57,11 @@ ele_correction_raster <- function(data, z = 13){
   return(data)
 }
 
-#' Title
+#' Elevation correction with local raster
 #'
 #' @param data dataframe or tibble containing a GPS stream
 #' @param raster raster object with elevations
-#' @param z zoom
+#' @param z zoom of Digital Elevation Model Map
 #'
 #' @return
 #' @export
@@ -83,10 +87,10 @@ ele_correction_raster_local <- function(data, raster, z = 13){
 
 ## global function if datapoints < 200, retrieve each one, else retrieve raster
 ## if local raster available, extract elevations directly
-#' Title
+#' Elevation correction return a stream dataframe  with correction of elevation from a stream data activity.
 #'
 #' @param data dataframe or tibble containing a GPS stream
-#' @param z zoom level
+#' @param z zoom of Digital Elevation Model Map
 #' @param raster raster object with elevations
 #'
 #' @return

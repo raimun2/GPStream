@@ -4,7 +4,7 @@
 #' @param nacts number of recent activities to get, default is 1, maximum value is 100
 #' strava_to_stream_df()
 #'
-#' @return
+#' @return List containing the activity stream.
 #' @export
 #'
 strava_to_stream_df <- function(stoken, nacts = 1){
