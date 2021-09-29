@@ -7,7 +7,7 @@
 #' @param data dataframe or tibble containing a GPS stream.
 #' @param z zoom of Digital Elevation Model Map
 #'
-#' @return dataframe
+#' @return GPS stream dataframe with 'ele_DEM' variable.
 #' @export
 #'
 #'
@@ -30,12 +30,13 @@ ele_correction_point <- function(data, z = 13){
 #rast <- try(raster::getData("alt", country = country, download = TRUE, mask = mask))
 
 
-#' Elevation correction raster
+#' Elevation correction raster calculate the elevation correction from a online raster file.
+#' The algorithm define a map projection, then generate spatial dataframe with coordinates and finally retrive the elevation correction from a digital elevation model.
 #'
 #' @param data dataframe or tibble containing a GPS stream.
 #' @param z zoom of Digital Elevation Model Map
 #'
-#' @return
+#' @return GPS stream dataframe with new variable 'ele_DEM'.
 #' @export
 #'
 ele_correction_raster <- function(data, z = 13){
@@ -57,13 +58,13 @@ ele_correction_raster <- function(data, z = 13){
   return(data)
 }
 
-#' Elevation correction with local raster
+#' Elevation correction with local raster, calculate the elevation from a local raster file and add it to a new column named 'ele_DEM'
 #'
 #' @param data dataframe or tibble containing a GPS stream
 #' @param raster raster object with elevations
 #' @param z zoom of Digital Elevation Model Map
 #'
-#' @return
+#' @return GPS stream dataframe with new variable 'ele_DEM'
 #' @export
 #'
 ele_correction_raster_local <- function(data, raster, z = 13){
@@ -75,7 +76,7 @@ ele_correction_raster_local <- function(data, raster, z = 13){
                                       data = data.frame(cbind(data$lon,data$lat)),
                                       proj4string = sp::CRS(ll_prj))
 
-  # retrieve eleation from Digital elevation Model (DEM)
+  # retrieve elevation from Digital elevation Model (DEM)
   #raster <- elevatr::get_elev_raster(locations = puntos, units = "meters",src="aws",z=z)
 
   data$ele_DEM = raster::extract(raster, puntos)
@@ -87,13 +88,16 @@ ele_correction_raster_local <- function(data, raster, z = 13){
 
 ## global function if datapoints < 200, retrieve each one, else retrieve raster
 ## if local raster available, extract elevations directly
+
 #' Elevation correction return a stream dataframe  with correction of elevation from a stream data activity.
+#' The algorithm use ele_correction_point, ele_correction_raster, ele_correction_raster_local functions to calculate the elevation correction.
+#'
 #'
 #' @param data dataframe or tibble containing a GPS stream
 #' @param z zoom of Digital Elevation Model Map
-#' @param raster raster object with elevations
+#' @param raster raster object with elevations.
 #'
-#' @return
+#' @return GPS stream dataframe with new variable 'ele_DEM'
 #' @export
 #'
 ele_correction <- function(data, z = 13, raster=NULL){
