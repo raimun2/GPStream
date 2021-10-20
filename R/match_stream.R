@@ -1,8 +1,8 @@
 #' Title
 #'
-#' @param data a stream
-#' @param route another stream
-#' @param tolerance thershold
+#' @param data dataframe or tibble containing a GPS stream
+#' @param route another GPs stream
+#' @param tolerance thershold. Default setting on 20
 #'
 #' @return
 #' @export

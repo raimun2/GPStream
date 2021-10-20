@@ -1,13 +1,16 @@
 #' Title
 #'
 #' @param data dataframe or tibble containing a GPS stream
-#' @param size tamaño splits
-#' @param value tiempo o distancia del tamaño
-#' @param windowed si ventanea o no
+#' @param size split size
+#' @param value time or distance of the size
+#' @param windowed if it windowed or not. ##si ventanea o no?
 #'
 #' @return
 #' @export
 #'
+
+#Para utilizar esta funcion se debe definir primero 'rolling window'
+
 split_stream = function(data, size = 60, value = "time", windowed = FALSE){
 
   if(windowed){

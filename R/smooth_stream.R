@@ -2,7 +2,7 @@
 #'
 #' @param data dataframe or tibble containing a GPS stream
 #' @param alpha smoothing parameter
-#' @param interpolate binary variable #¿para que?
+#' @param interpolate binary variable #¿para que?. Default setting on False
 #'
 #' @return
 #' @export
