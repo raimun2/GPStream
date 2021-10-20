@@ -1,8 +1,8 @@
-#' Title
+#' Generate model for lon, lat and ele in function of time. For stream without time, uses the GPS reading acumulative count.
 #'
 #' @param data dataframe or tibble containing a GPS stream
 #' @param alpha smoothing parameter
-#' @param interpolate binary
+#' @param interpolate binary variable #¿para que?
 #'
 #' @return
 #' @export

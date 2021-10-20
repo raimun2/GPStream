@@ -6,6 +6,7 @@
 #'
 #' @param data dataframe or tibble containing a GPS stream.
 #' @param z zoom of Digital Elevation Model Map
+#' @param replace binary variable. Default value = TRUE. Defines whether to create a new column or replace the altitude by 'ele_DEM'
 #'
 #' @return GPS stream dataframe with 'ele_DEM' variable.
 #' @export
@@ -42,6 +43,7 @@ ele_correction_point <- function(data, z = 13, replace=TRUE){ #generar nueva col
 #'
 #' @param data dataframe or tibble containing a GPS stream.
 #' @param z zoom of Digital Elevation Model Map
+#' @param replace binary variable. Default value = TRUE. Defines whether to create a new column or replace the altitude by 'ele_DEM'
 #'
 #' @return GPS stream dataframe with new variable 'ele_DEM'.
 #' @export
@@ -73,7 +75,7 @@ ele_correction_raster <- function(data, z = 13, replace=TRUE){
 #'
 #' @param data dataframe or tibble containing a GPS stream
 #' @param raster raster object with elevations
-#'
+#' @param replace binary variable. Default value = TRUE. Defines whether to create a new column or replace the altitude by 'ele_DEM'
 #' @return GPS stream dataframe with new variable 'ele_DEM'
 #' @export
 #'
@@ -110,7 +112,7 @@ ele_correction_raster_local <- function(data, raster){
 #' @param data dataframe or tibble containing a GPS stream
 #' @param z zoom of Digital Elevation Model Map
 #' @param raster raster object with elevations.
-#' @param replace binary variable sobreescribir nueva columna
+#' @param replace binary variable. Default value = TRUE. Defines whether to create a new column or replace the altitude by 'ele_DEM'
 #'
 #' @return GPS stream dataframe with new variable 'ele_DEM'
 #' @export
