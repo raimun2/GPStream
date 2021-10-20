@@ -1,8 +1,8 @@
-#' Title
+#' Comparar streams
 #'
 #' @param data dataframe or tibble containing a GPS stream
 #' @param route another GPs stream
-#' @param tolerance thershold. Default setting on 20
+#' @param tolerance thershold. Default setting on 20. Unidad de medida?(metros)
 #'
 #' @return
 #' @export
@@ -67,3 +67,4 @@ match_stream <- function(data, route, tolerance = 20){
 # select ST_LineFromEncodedPolyline(json_data->'map'->>'polyline')
 # from challenge_activity limit 1;
 
+#Quizas ver el porcentaje de match..
