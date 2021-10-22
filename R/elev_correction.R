@@ -25,9 +25,7 @@ ele_correction_point <- function(data, z = 13, replace=TRUE){ #generar nueva col
 
   if (replace==TRUE){
     data$ele = elevatr::get_elev_point(locations = puntos, units = "meters", src="aws", z=z)@data$elevation
-  }
-
-  else {
+  } else {
     data$ele_DEM = elevatr::get_elev_point(locations = puntos, units = "meters", src="aws", z=z)@data$elevation
   }
 
@@ -62,8 +60,7 @@ ele_correction_raster <- function(data, z = 13, replace=TRUE){
 
   if (replace==TRUE){
     data$ele = raster::extract(raster, puntos)
-  }
-  else {
+  } else {
     data$ele_DEM = raster::extract(raster, puntos)
   }
 
@@ -79,7 +76,7 @@ ele_correction_raster <- function(data, z = 13, replace=TRUE){
 #' @return GPS stream dataframe with new variable 'ele_DEM'
 #' @export
 #'
-ele_correction_raster_local <- function(data, raster){
+ele_correction_raster_local <- function(data, raster, replace=TRUE){
   # define map projection
   ll_prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
 
@@ -92,8 +89,7 @@ ele_correction_raster_local <- function(data, raster){
   #raster <- elevatr::get_elev_raster(locations = puntos, units = "meters",src="aws",z=z)
   if (replace==TRUE){
     data$ele = raster::extract(raster, puntos)
-  }
-  else{
+  } else{
     data$ele_DEM = raster::extract(raster, puntos)
   }
 

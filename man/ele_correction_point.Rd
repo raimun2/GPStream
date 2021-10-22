@@ -2,18 +2,22 @@
 % Please edit documentation in R/elev_correction.R
 \name{ele_correction_point}
 \alias{ele_correction_point}
-\title{Title}
+\title{Elevation correction point replace elevation points for coordinates of a Elevation Model Map and return a GPS stream dataframe with a new columns that shows the difference between original elevation and elevation model map elevation.
+The algorithm replace each point of the original stream with coordinates of Digital Elevation Map, then calculate the difference with original elevation in a new variable named 'ele_DEM'.}
 \usage{
-ele_correction_point(data, z = 13)
+ele_correction_point(data, z = 13, replace = TRUE)
 }
 \arguments{
-\item{data}{dataframe or tibble containing a GPS stream}
+\item{data}{dataframe or tibble containing a GPS stream.}
 
-\item{z}{zoom}
+\item{z}{zoom of Digital Elevation Model Map}
+
+\item{replace}{binary variable. Default value = TRUE. Defines whether to create a new column or replace the altitude by 'ele_DEM'}
 }
 \value{
-
+GPS stream dataframe with 'ele_DEM' variable.
 }
 \description{
-Title
+Elevation correction point replace elevation points for coordinates of a Elevation Model Map and return a GPS stream dataframe with a new columns that shows the difference between original elevation and elevation model map elevation.
+The algorithm replace each point of the original stream with coordinates of Digital Elevation Map, then calculate the difference with original elevation in a new variable named 'ele_DEM'.
 }

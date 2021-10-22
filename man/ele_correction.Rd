@@ -2,20 +2,28 @@
 % Please edit documentation in R/elev_correction.R
 \name{ele_correction}
 \alias{ele_correction}
-\title{Title}
+\title{Elevation correction return a stream dataframe  with correction of elevation from a stream data activity.
+The algorithm use ele_correction_point, ele_correction_raster, ele_correction_raster_local functions to calculate the elevation correction.
+Global function if datapoints < 200, retrieve each one, else retrieve raster
+If local raster available, extract elevations directly}
 \usage{
-ele_correction(data, z = 13, raster = NULL)
+ele_correction(data, z = 13, raster = NULL, replace = TRUE)
 }
 \arguments{
 \item{data}{dataframe or tibble containing a GPS stream}
 
-\item{z}{zoom level}
+\item{z}{zoom of Digital Elevation Model Map}
 
-\item{raster}{raster object with elevations}
+\item{raster}{raster object with elevations.}
+
+\item{replace}{binary variable. Default value = TRUE. Defines whether to create a new column or replace the altitude by 'ele_DEM'}
 }
 \value{
-
+GPS stream dataframe with new variable 'ele_DEM'
 }
 \description{
-Title
+Elevation correction return a stream dataframe  with correction of elevation from a stream data activity.
+The algorithm use ele_correction_point, ele_correction_raster, ele_correction_raster_local functions to calculate the elevation correction.
+Global function if datapoints < 200, retrieve each one, else retrieve raster
+If local raster available, extract elevations directly
 }

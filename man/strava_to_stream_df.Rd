@@ -13,7 +13,7 @@ strava_to_stream_df(stoken, nacts = 1)
 strava_to_stream_df()}
 }
 \value{
-
+List containing the activity stream.
 }
 \description{
 Gathers GPS streams from Strava's API. returns a list containing the activity stream, and activity summary data

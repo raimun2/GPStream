@@ -2,18 +2,22 @@
 % Please edit documentation in R/elev_correction.R
 \name{ele_correction_raster}
 \alias{ele_correction_raster}
-\title{Title}
+\title{Elevation correction raster calculate the elevation correction from a online raster file.
+The algorithm define a map projection, then generate spatial dataframe with coordinates and finally retrive the elevation correction from a digital elevation model.}
 \usage{
-ele_correction_raster(data, z = 13)
+ele_correction_raster(data, z = 13, replace = TRUE)
 }
 \arguments{
-\item{data}{dataframe or tibble containing a GPS stream}
+\item{data}{dataframe or tibble containing a GPS stream.}
 
-\item{z}{zoom}
+\item{z}{zoom of Digital Elevation Model Map}
+
+\item{replace}{binary variable. Default value = TRUE. Defines whether to create a new column or replace the altitude by 'ele_DEM'}
 }
 \value{
-
+GPS stream dataframe with new variable 'ele_DEM'.
 }
 \description{
-Title
+Elevation correction raster calculate the elevation correction from a online raster file.
+The algorithm define a map projection, then generate spatial dataframe with coordinates and finally retrive the elevation correction from a digital elevation model.
 }

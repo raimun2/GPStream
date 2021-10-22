@@ -2,20 +2,20 @@
 % Please edit documentation in R/elev_correction.R
 \name{ele_correction_raster_local}
 \alias{ele_correction_raster_local}
-\title{Title}
+\title{Elevation correction with local raster, calculate the elevation from a local raster file and add it to a new column named 'ele_DEM'}
 \usage{
-ele_correction_raster_local(data, raster, z = 13)
+ele_correction_raster_local(data, raster, replace = TRUE)
 }
 \arguments{
 \item{data}{dataframe or tibble containing a GPS stream}
 
 \item{raster}{raster object with elevations}
 
-\item{z}{zoom}
+\item{replace}{binary variable. Default value = TRUE. Defines whether to create a new column or replace the altitude by 'ele_DEM'}
 }
 \value{
-
+GPS stream dataframe with new variable 'ele_DEM'
 }
 \description{
-Title
+Elevation correction with local raster, calculate the elevation from a local raster file and add it to a new column named 'ele_DEM'
 }

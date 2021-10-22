@@ -9,11 +9,11 @@ split_stream(data, size = 60, value = "time", windowed = FALSE)
 \arguments{
 \item{data}{dataframe or tibble containing a GPS stream}
 
-\item{size}{tamaño splits}
+\item{size}{split size}
 
-\item{value}{tiempo o distancia del tamaño}
+\item{value}{time or distance of the size}
 
-\item{windowed}{si ventanea o no}
+\item{windowed}{if it windowed or not. ##si ventanea o no?}
 }
 \value{
 

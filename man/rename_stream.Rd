@@ -2,17 +2,20 @@
 % Please edit documentation in R/rename_stream.R
 \name{rename_stream}
 \alias{rename_stream}
-\title{rename GPS streams according to convention long, lat, elev, timestamp and time}
+\title{Rename GPS streams according to convention long, lat, elev, timestamp and time. If variable time is missing, the algorithm will aggregate a variable 'time' defined as seconds from start.
+The algorithm identify some typical names for longitude, latitude, elevation and time. Then raname variables, order it and return a dataframe. If some of this variables is missing or dosen't have a typical name, the return will only have renamed entry variables.}
 \usage{
 rename_stream(data)
 }
 \arguments{
-\item{data}{a dataframe or tibble containing a GPS stream
+\item{data}{is a dataframe or tibble containing a GPS stream. The stream dataframe can be obtained from rStrva library.(see rStrava documentation)
+
 rename_stream()}
 }
 \value{
-
+dataframe stream with 'lon', 'lat', 'ele' and 'time' variables.
 }
 \description{
-rename GPS streams according to convention long, lat, elev, timestamp and time
+Rename GPS streams according to convention long, lat, elev, timestamp and time. If variable time is missing, the algorithm will aggregate a variable 'time' defined as seconds from start.
+The algorithm identify some typical names for longitude, latitude, elevation and time. Then raname variables, order it and return a dataframe. If some of this variables is missing or dosen't have a typical name, the return will only have renamed entry variables.
 }

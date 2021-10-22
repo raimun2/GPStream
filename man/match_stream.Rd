@@ -2,20 +2,20 @@
 % Please edit documentation in R/match_stream.R
 \name{match_stream}
 \alias{match_stream}
-\title{Title}
+\title{Comparar streams}
 \usage{
 match_stream(data, route, tolerance = 20)
 }
 \arguments{
-\item{data}{a stream}
+\item{data}{dataframe or tibble containing a GPS stream}
 
-\item{route}{another stream}
+\item{route}{another GPs stream}
 
-\item{tolerance}{thershold}
+\item{tolerance}{thershold. Default setting on 20. Unidad de medida?(metros)}
 }
 \value{
 
 }
 \description{
-Title
+Comparar streams
 }

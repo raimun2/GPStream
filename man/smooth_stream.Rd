@@ -2,7 +2,7 @@
 % Please edit documentation in R/smooth_stream.R
 \name{smooth_stream}
 \alias{smooth_stream}
-\title{Title}
+\title{Generate model for lon, lat and ele in function of time. For stream without time, uses the GPS reading acumulative count.}
 \usage{
 smooth_stream(data, alpha = 0.05, interpolate = FALSE)
 }
@@ -11,11 +11,11 @@ smooth_stream(data, alpha = 0.05, interpolate = FALSE)
 
 \item{alpha}{smoothing parameter}
 
-\item{interpolate}{binary}
+\item{interpolate}{binary variable #¿para que?. Default setting on False}
 }
 \value{
 
 }
 \description{
-Title
+Generate model for lon, lat and ele in function of time. For stream without time, uses the GPS reading acumulative count.
 }
