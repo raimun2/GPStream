@@ -1,13 +1,13 @@
-#' Prices of 50,000 round cut diamonds.
+#' GPS readings from 10 endurance sports activities
 #'
-#' A dataset containing the prices and other attributes of almost 54,000
+#' Activity streams of 10 activities gathered from strava's API.  A dataset containing the prices and other attributes of almost 54,000
 #' diamonds.
 #'
 #' @format A data frame with 53940 rows and 10 variables:
 #' \describe{
-#'   \item{altitude}{weight of the diamond, in carats}
-#'   \item{cadence}{weight of the diamond, in carats}
-#'   \item{distance}{weight of the diamond, in carats}
+#'   \item{altitude}{altitude of the reading, in meters above sea level}
+#'   \item{cadence}{cadence of the activity, in steps/cycles per minute}
+#'   \item{distance}{cumulative distance of the trajectoty, in kilometers}
 #'   \item{grade_smooth}{weight of the diamond, in carats}
 #'   \item{heartrate}{weight of the diamond, in carats}
 #'   \item{id}{weight of the diamond, in carats}
