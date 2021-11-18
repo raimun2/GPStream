@@ -27,10 +27,9 @@ Imports:
     plyr,
     R.utils,
     raster,
-    rStrava,
     sp,
     stats,
-    tibble
+    tibble,
+    XML
 Remotes:
-    fawda123/rStrava,
     grimbough/FITfileR

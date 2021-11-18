@@ -17,11 +17,12 @@ read_stream_file <- function(filename){
   if(length(grep(".fit$",filename))>0){
 
     file_data <- FITfileR::readFitFile(filename)
-    stream_df <- FITfileR::records(file_data)
+    stream_df <- FITfileR::records(file_data) %>% tibble::as_tibble()
     stream_df$timestamp <- lubridate::as_datetime(stream_df$timestamp) #parse datetime
+    stream_df$time <- stream_df$timestamp - min(stream_df$timestamp)
 
   } else if(grep(".gpx$",filename)==1) { # if gpx file use plotKML library
-    file_data <- read_GPX(filename)
+    stream_df <- read_GPX(filename)
   } else{
     message("unsupported format")
   }

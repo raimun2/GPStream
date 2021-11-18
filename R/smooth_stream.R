@@ -34,7 +34,7 @@ smooth_stream<-function(data, alpha = 0.05, interpolate = FALSE){
 
   } else{ # if interpolate, generate interpolated route with 1 second difference between points
 
-    smoothActivity <- data.frame("time"=1:(max(data$time)/60))*60
+    smoothActivity <- data.frame("time"=1:(max(data$time)))
     smoothActivity$lon <- stats::predict(lonmodel,smoothActivity$time)
     smoothActivity$lat <- stats::predict(latmodel,smoothActivity$time)
     smoothActivity$ele <- stats::predict(elemodel,smoothActivity$time)

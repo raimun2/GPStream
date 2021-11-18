@@ -11,6 +11,8 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+pacman::p_load(tidyverse)
 ```
 
 # GPStream
@@ -18,43 +20,110 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of GPStream is to ...
 
-## Installation
+The goal of GPStream is to process GPS generated data such as used in sports apps and wearable devices. You can find functions to load the data and process it. The package can read streams of GPS readings, consisting in latitude, longitude, elevation and time and compute several features for each measure. 
 
-You can install the released version of GPStream from [CRAN](https://CRAN.R-project.org) with:
+GPS data streams can be obtained several ways. The most common file format is GPX files, an XML variant for GPS readings, but fit files (from Garmin devices) is also supported. Some sports apps like strava offers API services from which streams can be obtained. 
+
+For more information about gathering GPX files from strava follow the steps described by [marcusvolz/strava](https://github.com/marcusvolz/strava)
+
+For more information about gathering streams from strava API follow the steps described by [fawda123/rStrava](https://github.com/fawda123/rStrava)
+
+This package contains sample data as it comes from the latter alternative. Both activity metadata and streams are available, corresponding to activities recorded by the author
+
+### Overview and installation
+
+This is the development repository for GPS_stream, an R package to analyze data from a GPS stream. The development version from [GitHub](https://github.com/) can be installed and loaded as follows:
 
 ``` r
-install.packages("GPStream")
-```
-
-And the development version from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("raimun2/GPStream")
+# install.packages("pacman")
+pacman::p_load_gh('raimun2/GPStream')
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to load sample data:
 
-```{r example}
-library(GPStream)
-## basic example code
+```{r sampledata}
+pacman::p_load(GPStream)
+
+act_streams <- strava_streams
+
+str(act_streams)
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+Data can also be loaded from stream files such as GPX or fit files
 
 ```{r cars}
-summary(cars)
+
+gpx_stream <- read_stream_file("inst/extdata/activity.gpx")
+
+str(gpx_stream)
+
+fit_stream <- read_stream_file("inst/extdata/activity.fit")
+
+str(fit_stream)
+
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
+As can be seen, not files contains the same naming convention for coordinates, so we follow the lat, lon, ele, timestamp, time convention for latitude, longitude, elevation and time signature respectively. This convention is implemented in rename_stream() function.
 
-You can also embed plots, for example:
+```{r}
+clean_stream1 <- act_streams %>% rename_stream()
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+clean_stream2 <- gpx_stream %>% rename_stream()
+
+clean_stream3 <- fit_stream %>% rename_stream()
+
+str(clean_stream2)
+
+```
+In several occasions elevation readings can be corrupted or missing, so the ele_correction() function is implemented, obtaining elevation data from a digital elevation model (DEM) available in the elevatr package, or in a local DEM if available. 
+
+```{r}
+
+correct_elevation <- clean_stream2 %>% ele_correction(replace = FALSE)
+
+ggplot(correct_elevation, aes(x=time)) + 
+  geom_line(aes(y=ele)) + 
+  geom_line(aes(y=ele_DEM), col="red")
+
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+In other cases, even lat and lon values can be corrupted and therefore need smoothing in order to represent distances correctly. Smoothing can be also applied to interpolate a stream and obtaining an even spaced model of the activity
+
+```{r}
+
+smooth_act <- correct_elevation %>% smooth_stream(interpolate = TRUE, alpha = 0.05)
+
+ggplot(correct_elevation, aes(lon, lat)) + 
+  geom_point() + 
+  geom_point(data = smooth_act, col="red")
+
+```
+So far we have corrected coordinates, but we can also estimate different differential features, such as slope, distance, elevation gain/loss, speed, etc. For this purposes is the function differential_stream
+
+```{r}
+
+diff_stream <- smooth_act %>% differential_stream()
+
+str(diff_stream)
+
+```
+In summary, several functions can be combined to read and analyze GPS streams obtained from physical activities or other sources
+
+```{r, message=FALSE, warning=FALSE}
+
+clean_stream <- 
+  read_stream_file("inst/extdata/activity.fit") %>% 
+  rename_stream() %>% 
+  ele_correction(replace = FALSE) %>% 
+  smooth_stream(interpolate = FALSE, alpha = 0.05) %>% 
+  differential_stream()
+  
+ggplot(clean_stream, aes(lon,lat)) +
+  geom_point(aes(size=hz_velocity, col=vert_velocity))
+
+
+```
+
