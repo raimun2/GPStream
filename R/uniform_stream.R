@@ -18,7 +18,7 @@ uniform_stream <- function(data){
   timecols <- grepl("(t|T)ime", colnames(data))
 
   if(sum(timecols)==1){
-    df_time <- data %>% pull(colnames(data)[timecols])
+    df_time <- data %>% dplyr::pull(colnames(data)[timecols])
     if(is.character(df_time)){
       df_time <- lubridate::as_datetime(df_time)
     }

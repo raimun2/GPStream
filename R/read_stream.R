@@ -1,6 +1,6 @@
 #' Load GPS streams from a single gpx, kml, kmz, tcx or fit file and stores it in a Tibble
 #' Allows to process files from Strava's bulk export, which includes compressed fit files (*.fit.gz)
-#' @param filename The file path to the directory containing file
+#' @param filename The file path
 #' read_stream()
 #'
 #' @return
@@ -22,7 +22,7 @@ read_stream <- function(filename){
       stream_df <-  plyr::rbind.fill(lapply(stream_df,function(y){as.data.frame((y))}))
     }
   } else if(length(grep(".gpx$",filename))==1) {
-    stream_df <- read_GPX(filename)
+    stream_df <- read_gpx(filename)
   } else if(length(grep(".kml$",filename))==1) {
     stream_df <- do.call("rbind", maptools::getKMLcoordinates(filename))
     colnames(stream_df)[1:ncol(stream_df)] <- c("lon", "lat", "ele")[1:ncol(stream_df)]
@@ -38,16 +38,16 @@ read_stream <- function(filename){
 }
 
 
-#' Read GPX file into stream
+#' Read gpx file into stream
 #' more flexible than plotKML function
 #'
 #' @param filename The file path to the containing file
-#' read_GPX()
+#' read_gpx()
 #'
 #' @return
 #' @export
 #'
-read_GPX <- function(filename){
+read_gpx<- function(filename){
   pfile <- XML::htmlTreeParse(file = filename,
                              error = function(...) { },
                              useInternalNodes = T)

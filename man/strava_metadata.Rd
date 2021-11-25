@@ -7,67 +7,78 @@
 \format{
 A data frame with 53940 rows and 10 variables:
 \describe{
-\item{achievement_count}{weight of the diamond, in carats}
-\item{athlete.id}{weight of the diamond, in carats}
-\item{athlete.resource_state}{weight of the diamond, in carats}
-\item{athlete_count}{weight of the diamond, in carats}
-\item{average_cadence}{weight of the diamond, in carats}
-\item{average_heartrate}{weight of the diamond, in carats}
-\item{average_speed}{weight of the diamond, in carats}
-\item{average_temp}{weight of the diamond, in carats}
-\item{average_watts}{weight of the diamond, in carats}
-\item{comment_count}{weight of the diamond, in carats}
-\item{commute}{weight of the diamond, in carats}
-\item{device_watts}{weight of the diamond, in carats}
+\item{achievement_count}{The number of achievements gained during this activity, integer value}
+\item{athlete.id}{The unique identifier of the athlete, integer value}
+\item{athlete.resource_state}{Indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail", integer value (1,2,3)}
+\item{athlete_count}{The number of unique athletes who have an effort for this segment, integer value} #hay 2 posibles
+\item{average_cadence}{The effort's average cadence, in steps/cycles per minute}
+\item{average_heartrate}{The heartrate of the athlete during the effort, in beats per minute}
+\item{average_speed}{The activity's average speed, in meters per second}
+\item{average_temp}{The average of temperature for the stream activity, in celsius degrees}
+\item{average_watts}{The average wattage of the stream activity, in watts}
+\item{comment_count}{The number of comments for this activity, integer value}
+\item{commute}{Whether this activity is a commute, boolean value}
+\item{device_watts}{Whether the wattage was reported by a dedicated recording device, boolean}
+
 \item{display_hide_heartrate_option}{weight of the diamond, in carats}
-\item{distance}{weight of the diamond, in carats}
-\item{elapsed_time}{weight of the diamond, in carats}
-\item{elev_high}{weight of the diamond, in carats}
-\item{elev_low}{weight of the diamond, in carats}
-\item{end_latlng1}{weight of the diamond, in carats}
-\item{end_latlng2}{weight of the diamond, in carats}
-\item{external_id}{weight of the diamond, in carats}
-\item{flagged}{weight of the diamond, in carats}
+
+\item{distance}{cumulative distance of the trajectoty, in meters}
+\item{elapsed_time}{The total elapsed time of the considered activities, in seconds}
+\item{elev_high}{The activity's highest elevation, in meters}
+\item{elev_low}{,The activity's lowest elevation, in meters}
+\item{end_latlng1}{Coordinates of the end of the activity, in sexagesimal degrees}
+\item{end_latlng2}{Coordinates of the end of the activity, in sexagesimal degrees}
+\item{external_id}{The desired external identifier of the resulting activity, integer value}
+\item{flagged}{Whether this activity is flagged, boolean}
+
 \item{from_accepted_tag}{weight of the diamond, in carats}
-\item{gear_id}{weight of the diamond, in carats}
-\item{has_heartrate}{weight of the diamond, in carats}
-\item{has_kudoed}{weight of the diamond, in carats}
+
+\item{gear_id}{Identifier for the gear associated with the activity. ‘none’ clears gear from activity, string value}
+\item{has_heartrate}{Whether the activity has heartrate, boolean}
+\item{has_kudoed}{Whether the logged-in athlete has kudoed this activity, boolean}
+
 \item{heartrate_opt_out}{weight of the diamond, in carats}
-\item{id}{weight of the diamond, in carats}
-\item{kilojoules}{weight of the diamond, in carats}
-\item{kudos_count}{weight of the diamond, in carats}
-\item{location_city}{weight of the diamond, in carats}
-\item{location_country}{weight of the diamond, in carats}
-\item{location_state}{weight of the diamond, in carats}
-\item{manual}{weight of the diamond, in carats}
-\item{map.id}{weight of the diamond, in carats}
-\item{map.resource_state}{weight of the diamond, in carats}
+
+\item{id}{The unique identifier of the activity, integer value}
+\item{kilojoules}{The total work done during this activity. Rides only, in kilojoules}
+\item{kudos_count}{The number of kudos given for this activity, integer value}
+\item{location_city}{The athlete's city, string}
+\item{location_country}{The athlete's country, string}
+\item{location_state}{The athlete's state or geographical region, string}
+\item{manual}{Whether this activity was created manually, boolean}
+\item{map.id}{The identifier of the map, string}
+\item{map.resource_state}{resource state, indicates level of detail of the map. Possible values: 2 -> "summary", 3 -> "detail", integer value}
+
 \item{map.summary_polyline}{weight of the diamond, in carats}
-\item{max_heartrate}{weight of the diamond, in carats}
-\item{max_speed}{weight of the diamond, in carats}
-\item{moving_time}{weight of the diamond, in carats}
-\item{name}{weight of the diamond, in carats}
-\item{photo_count}{weight of the diamond, in carats}
+\item{max_heartrate}{The maximum heart rate of the athlete during this effort,in beats per minute}
+\item{max_speed}{The activity's max speed, in meters per second}
+\item{moving_time}{The activity's total moving time, in seconds}
+\item{name}{The name of the activity, string}
+\item{photo_count}{The number of Instagram photos for this activity, integer value}
+
 \item{pr_count}{weight of the diamond, in carats}
-\item{private}{weight of the diamond, in carats}
-\item{resource_state}{weight of the diamond, in carats}
-\item{start_date}{weight of the diamond, in carats}
-\item{start_date_local}{weight of the diamond, in carats}
-\item{start_latitude}{weight of the diamond, in carats}
-\item{start_latlng1}{weight of the diamond, in carats}
-\item{start_latlng2}{weight of the diamond, in carats}
-\item{start_longitude}{weight of the diamond, in carats}
+
+\item{private}{Whether this route is private, boolean}
+\item{resource_state}{Resource state, indicates level of detail. Possible values: 2 -> "summary", 3 -> "detail"}
+\item{start_date}{The time at which the effort was started, in Date format}
+\item{start_date_local}{The time at which the effort was started in the local timezone, in Date format}
+\item{start_latitude}{Latitude coordinate of the start of the activity,in sexagesimal degrees}
+\item{start_latlng1}{Coordinates of the start of the activity, in sexagesimal degrees}
+\item{start_latlng2}{Coordinates of the start of the activity, in sexagesimal degrees}
+\item{start_longitude}Longitude coordinate of the start of the activity,in sexagesimal degrees}
+
 \item{suffer_score}{weight of the diamond, in carats}
-\item{timezone}{weight of the diamond, in carats}
-\item{total_elevation_gain}{weight of the diamond, in carats}
-\item{total_photo_count}{weight of the diamond, in carats}
-\item{trainer}{weight of the diamond, in carats}
-\item{type}{weight of the diamond, in carats}
-\item{upload_id}{weight of the diamond, in carats}
-\item{upload_id_str}{weight of the diamond, in carats}
-\item{utc_offset}{weight of the diamond, in carats}
-\item{visibility}{weight of the diamond, in carats}
-\item{workout_type}{weight of the diamond, in carats}
+
+\item{timezone}{The timezone of the activity, string}
+\item{total_elevation_gain}{The elevation gain of this lap, in meters}
+\item{total_photo_count}{The number of Instagram and Strava photos for this activity, integer value}
+\item{trainer}{Whether this activity was recorded on a training machine, boolean}
+\item{type}{Type of the acivity, string}
+\item{upload_id}{The identifier of the upload that resulted in this activity, integer value}
+\item{upload_id_str}{The unique identifier of the upload, in string format}
+\item{utc_offset}{The UTC offset is the difference between Coordinated Universal Time, in hours and minutes}
+\item{visibility}{Athlete profile visibility, boolean}
+\item{workout_type}{The activity's workout type, string}
 ...
 }
 }

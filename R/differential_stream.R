@@ -7,64 +7,72 @@
 #'
 differential_stream <- function(data){
 
-  # previous lon / lat
-  data$point2_lat = c(0,data$lat[-nrow(data)])
-  data$point2_lon = c(0,data$lon[-nrow(data)])
+  if(exists("lon",data) & exists("lat", data)){
+    # previous lon / lat
+    data$lat_p2 <- c(0,data$lat[-nrow(data)])
+    data$lon_p2 <- c(0,data$lon[-nrow(data)])
 
-  # haversise distance between each point and previous one
-  data$delta_distance = geosphere::distHaversine(cbind(data$lon,data$lat),
-                                                 cbind(data$point2_lon,data$point2_lat))
-  data$delta_distance[1] = 0
+    # 2 point previous
+    data$lat_p3 <- c(0,data$lat_p2[-nrow(data)])
+    data$lon_p3 <- c(0,data$lon_p2[-nrow(data)])
 
-  ## 3d distance tambien
+    # haversise distance between each point and previous one
+    data$delta_distance <- geosphere::distHaversine(cbind(data$lon,data$lat),
+                                                    cbind(data$lon_p2,data$lat_p2))
+    data$delta_distance[1] <- 0
 
+    # calculate cumulative distance in kms
+    data$distance <- cumsum(data$delta_distance) / 1000
 
-  # calculate cumulative distance in kms
-  data$distance <- cumsum(data$delta_distance) / 1000
+    # calculate azimuthal angle
+    vector1 <- cbind(data$lon-data$lon_p2, data$lat-data$lat_p2)
+    vector2 <- cbind(data$lon_p3-data$lon_p2,data$lat_p3-data$lat_p2)
+    num <- vector1[,1]*vector2[,1] + vector1[,2]*vector2[,2]
+    den <- sqrt(vector1[,1]^2 + vector1[,2]^2)*sqrt(vector2[,1]^2 + vector2[,2]^2)
+    data$azimuth <- ifelse(den == 0, 180, (360*acos(num/den))/(2*pi) )
 
-  data$delta_ele <- c(0,diff(data$ele,lag=1))
-  data$delta_ele[1] <- 0
-  data$dplus <- ifelse(data$delta_ele>0, data$delta_ele, 0)
-  data$dminus <- ifelse(data$delta_ele<0, data$delta_ele, 0)
+    data$lat_p2 <- NULL
+    data$lon_p2 <- NULL
+    data$lat_p3 <- NULL
+    data$lon_p3 <- NULL
 
-  # 2 point previous
-  data$point3_lat = c(0,data$point2_lat[-nrow(data)])
-  data$point3_lon = c(0,data$point2_lon[-nrow(data)])
+    ## 3d distance tambien
+    if(exists("ele", data)){
+      data$delta_ele <- c(0,diff(data$ele,lag=1))
+      data$delta_ele[1] <- 0
+      data$dplus <- ifelse(data$delta_ele>0, data$delta_ele, 0)
+      data$dminus <- ifelse(data$delta_ele<0, data$delta_ele, 0)
 
-  vector1 <- cbind(data$lon-data$point2_lon, data$lat-data$point2_lat)
-  vector2 <- cbind(data$point3_lon-data$point2_lon,data$point3_lat-data$point2_lat)
-  num <- vector1[,1]*vector2[,1] + vector1[,2]*vector2[,2]
-  den <- sqrt(vector1[,1]^2 + vector1[,2]^2)*sqrt(vector2[,1]^2 + vector2[,2]^2)
-  data$angle <- ifelse(den == 0, 180, (360*acos(num/den))/(2*pi) )
+      data$grade <- ( data$delta_ele / data$delta_distance )
+      data$grade[1] <- 0
+      data[data$delta_distance == 0,]$grade <- 0
 
-  data$point2_lat = NULL
-  data$point2_lon = NULL
-  data$point3_lat = NULL
-  data$point3_lon = NULL
+    }
+    if(exists("time", data)){
+      # calculate difference in time and elevation between readings
+      data$delta_time <- c(0,diff(data$time,lag=1))
+      data$delta_time[1] <- 0
+      data$hz_velocity <- data$delta_distance / data$delta_time
+      data$hz_velocity[1] <- 0
+      data$hz_accel <- data$hz_velocity / data$delta_time
+      data$hz_accel[data$delta_time == 0] <- 0
+      # calculate pace in minutes per kilometer
+      data$pace <- c(0,1000/60/data$hz_velocity[-1])
 
-  data$grade = ( data$delta_ele / data$delta_distance )
-  data$grade[1] = 0
-  data[data$delta_distance == 0,]$grade = 0
+      if(exists("ele",data)){
+        # calculate derivatives: vertical and horizontal velocity, in meters per second
+        data$vert_velocity <- data$delta_ele / data$delta_time
+        data$vert_velocity[1] <- 0
+        data$vert_accel <- data$vert_velocity / data$delta_time
+        data$vert_accel[data$delta_time == 0] <- 0
 
-  if(!is.null(data$time)){
-    # calculate difference in time and elevation between readings
-    data$delta_time = c(0,diff(data$time,lag=1))
-    data$delta_time[1] = 0
-
-    # calculate derivatives: vertical and horizontal velocity, in meters per second
-    data$vert_velocity = data$delta_ele / data$delta_time
-    data$vert_velocity[1] = 0
-
-    data$hz_velocity = data$delta_distance / data$delta_time
-    data$hz_velocity[1] = 0
-
-    #3d velocity
-    data$velocity <- sqrt(data$vert_velocity^2 + data$hz_velocity^2)
-
-    # calculate pace in minutes per kilometer
-    data$pace <- c(0,1000/60/data$hz_velocity[-1])
+        #3d velocity
+        data$velocity <- sqrt(data$vert_velocity^2 + data$hz_velocity^2)
+        data$accel <- sqrt(data$vert_accel^2 + data$hz_accel^2)
+      }
+    }
+    return(data) # return enriched dataframe
+  } else {
+    message("lat and lon are needed to compute differences. see ? uniform_stream()")
   }
-
-  # return enriched dataset
-  return(data)
 }

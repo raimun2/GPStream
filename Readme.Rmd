@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 
-pacman::p_load(tidyverse)
+library(tidyverse)
 ```
 
 # GPStream
@@ -25,11 +25,11 @@ The goal of GPStream is to process GPS generated data such as used in sports app
 
 GPS data streams can be obtained several ways. The most common file format is GPX files, an XML variant for GPS readings, but fit files (from Garmin devices) is also supported. Some sports apps like strava offers API services from which streams can be obtained. 
 
-For more information about gathering GPX files from strava follow the steps described by [marcusvolz/strava](https://github.com/marcusvolz/strava)
+For more information about gathering GPX/fit files from strava follow the steps described by [marcusvolz/strava](https://github.com/marcusvolz/strava)
 
 For more information about gathering streams from strava API follow the steps described by [fawda123/rStrava](https://github.com/fawda123/rStrava)
 
-This package contains sample data as it comes from the latter alternative. Both activity metadata and streams are available, corresponding to activities recorded by the author
+This package contains raw files and sample data as it comes from the latter alternative. Both activity metadata and streams are available, corresponding to activities recorded by the author
 
 ### Overview and installation
 
@@ -37,14 +37,14 @@ This is the development repository for GPS_stream, an R package to analyze data 
 
 ``` r
 # install.packages("pacman")
-pacman::p_load_gh('raimun2/GPStream')
+remotes::install_github(GPStream)
 ```
 ## Example
 
 This is a basic example which shows you how to load sample data:
 
 ```{r sampledata}
-pacman::p_load(GPStream)
+library(GPStream)
 
 act_streams <- strava_streams
 
@@ -118,7 +118,7 @@ clean_stream <-
   read_stream("inst/extdata/activity.fit") %>% 
   uniform_stream() %>% 
   ele_correction(replace = FALSE) %>% 
-  smooth_stream(interpolate = FALSE, alpha = 0.05) %>% 
+  smooth_stream(interpolate = FALSE, alpha = 0.05, replace = FALSE) %>% 
   differential_stream()
   
 ggplot(clean_stream, aes(lon,lat)) +

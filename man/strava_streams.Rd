@@ -3,22 +3,23 @@
 \docType{data}
 \name{strava_streams}
 \alias{strava_streams}
-\title{Prices of 50,000 round cut diamonds.}
+\title{GPS readings from 10 endurance sports activities}
 \format{
 A data frame with 53940 rows and 10 variables:
 \describe{
-\item{altitude}{weight of the diamond, in carats}
-\item{cadence}{weight of the diamond, in carats}
-\item{distance}{weight of the diamond, in carats}
+\item{altitude}{altitude of the reading, in meters above sea level}
+\item{cadence}{cadence of the activity, in steps/cycles per minute}
+\item{distance}{cumulative distance of the trajectoty, in kilometers}
 \item{grade_smooth}{weight of the diamond, in carats}
-\item{heartrate}{weight of the diamond, in carats}
-\item{id}{weight of the diamond, in carats}
-\item{lat}{weight of the diamond, in carats}
-\item{lng}{weight of the diamond, in carats}
-\item{moving}{weight of the diamond, in carats}
-\item{temp}{weight of the diamond, in carats}
-\item{time}{weight of the diamond, in carats}
-\item{velocity_smooth}{weight of the diamond, in carats}
+\item{heartrate}{heartrate of the athlete, in beats per minute}
+\item{id}{The unique identifier of the activity, integer number} #tambien puede identificar al corredor o lap especifica
+\item{lat}{latitude coordinate of a single point of the activity stream, in sexagesimal degrees}
+\item{lng}{latitude coordinate of a single point of the activity stream, in sexagesimal degrees}
+\item{moving}{Sequence of moving values of the stream activity, in boolean values} #no la entendí
+\item{temp}{Sequence of temperature values of the stream activity, in celsius degrees}
+\item{time}{Sequence of time values of the stream activity, in seconds}
+
+\item{velocity_smooth}{weight of the diamond, in meters per second}
 ...
 }
 }
@@ -29,7 +30,7 @@ A data frame with 53940 rows and 10 variables:
 strava_streams
 }
 \description{
-A dataset containing the prices and other attributes of almost 54,000
+Activity streams of 10 activities gathered from strava's API.  A dataset containing the prices and other attributes of almost 54,000
 diamonds.
 }
 \keyword{datasets}

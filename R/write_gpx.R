@@ -6,7 +6,7 @@
 #' @return
 #' @export
 #'
-writeGPX <- function(stream, file="file.gpx"){
+write_gpx <- function(stream, file="file.gpx"){
   # Write gpx data to a new file.
   lat <- stream$lat
   lon <- stream$lon

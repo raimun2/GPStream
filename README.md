@@ -18,16 +18,16 @@ format is GPX files, an XML variant for GPS readings, but fit files
 (from Garmin devices) is also supported. Some sports apps like strava
 offers API services from which streams can be obtained.
 
-For more information about gathering GPX files from strava follow the
-steps described by
+For more information about gathering GPX/fit files from strava follow
+the steps described by
 [marcusvolz/strava](https://github.com/marcusvolz/strava)
 
 For more information about gathering streams from strava API follow the
 steps described by
 [fawda123/rStrava](https://github.com/fawda123/rStrava)
 
-This package contains sample data as it comes from the latter
-alternative. Both activity metadata and streams are available,
+This package contains raw files and sample data as it comes from the
+latter alternative. Both activity metadata and streams are available,
 corresponding to activities recorded by the author
 
 ### Overview and installation
@@ -38,7 +38,7 @@ analyze data from a GPS stream. The development version from
 
 ``` r
 # install.packages("pacman")
-pacman::p_load_gh('raimun2/GPStream')
+remotes::install_github(GPStream)
 ```
 
 ## Example
@@ -46,7 +46,7 @@ pacman::p_load_gh('raimun2/GPStream')
 This is a basic example which shows you how to load sample data:
 
 ``` r
-pacman::p_load(GPStream)
+library(GPStream)
 
 act_streams <- strava_streams
 
@@ -168,23 +168,26 @@ speed, etc. For this purposes is the function differential\_stream
 diff_stream <- smooth_act %>% differential_stream()
 
 str(diff_stream)
-#> 'data.frame':    8495 obs. of  16 variables:
+#> 'data.frame':    8495 obs. of  19 variables:
 #>  $ lon           : num  -71.5 -71.5 -71.5 -71.5 -71.5 ...
 #>  $ lat           : num  -32.6 -32.6 -32.6 -32.6 -32.6 ...
 #>  $ ele           : num  70.5 70.6 70.8 70.9 71.1 ...
 #>  $ time          : int  1 2 3 4 5 6 7 8 9 10 ...
 #>  $ delta_distance: num  0 1.44 1.44 1.43 1.43 ...
 #>  $ distance      : num  0 0.00144 0.00288 0.00432 0.00574 ...
+#>  $ azimuth       : num  180 178 180 180 180 ...
 #>  $ delta_ele     : num  0 0.142 0.143 0.143 0.143 ...
 #>  $ dplus         : num  0 0.142 0.143 0.143 0.143 ...
 #>  $ dminus        : num  0 0 0 0 0 0 0 0 0 0 ...
-#>  $ angle         : num  180 178 180 180 180 ...
 #>  $ grade         : num  0 0.0984 0.0991 0.0998 0.1004 ...
 #>  $ delta_time    : num  0 1 1 1 1 1 1 1 1 1 ...
-#>  $ vert_velocity : num  0 0.142 0.143 0.143 0.143 ...
 #>  $ hz_velocity   : num  0 1.44 1.44 1.43 1.43 ...
-#>  $ velocity      : num  0 1.45 1.45 1.44 1.44 ...
+#>  $ hz_accel      : num  0 1.44 1.44 1.43 1.43 ...
 #>  $ pace          : num  0 11.5 11.6 11.6 11.7 ...
+#>  $ vert_velocity : num  0 0.142 0.143 0.143 0.143 ...
+#>  $ vert_accel    : num  0 0.142 0.143 0.143 0.143 ...
+#>  $ velocity      : num  0 1.45 1.45 1.44 1.44 ...
+#>  $ accel         : num  0 1.45 1.45 1.44 1.44 ...
 ```
 
 In summary, several functions can be combined to read and analyze GPS
@@ -196,7 +199,7 @@ clean_stream <-
   read_stream("inst/extdata/activity.fit") %>% 
   uniform_stream() %>% 
   ele_correction(replace = FALSE) %>% 
-  smooth_stream(interpolate = FALSE, alpha = 0.05) %>% 
+  smooth_stream(interpolate = FALSE, alpha = 0.05, replace = FALSE) %>% 
   differential_stream()
   
 ggplot(clean_stream, aes(lon,lat)) +

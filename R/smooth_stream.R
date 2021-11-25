@@ -1,4 +1,4 @@
-#' Generate model for lon, lat and ele in function of time. For stream without time, uses the GPS reading acumulative count.
+#' Generate model for lon, lat and ele in function of time. For stream without time, uses the GPS reading cumulative count.
 #'
 #' @param data dataframe or tibble containing a GPS stream
 #' @param alpha smoothing parameter
@@ -7,10 +7,9 @@
 #' @return
 #' @export
 #'
+smooth_stream<-function(data, alpha = 0.05, interpolate = FALSE, replace = TRUE){
 
-smooth_stream<-function(data, alpha = 0.05, interpolate = FALSE){
-
-  # generate model for lon, lat and ele in function of time
+  # generate model for lon, lat and ele in function of time (or nrow in absence of time)
   # for routes without time uses the GPS readings cumulative count
   if(is.null(data$time)){
     data$reading <- 1:nrow(data)
@@ -27,9 +26,15 @@ smooth_stream<-function(data, alpha = 0.05, interpolate = FALSE){
 
   # if interpolate is false smooth recorded coordinates
   if(!interpolate){
-    data$smoothLon = predict(lonmodel)
-    data$smoothLat = predict(latmodel)
-    data$smoothEle = predict(elemodel)
+    if(replace){
+      data$lon <- predict(lonmodel)
+      data$lat <- predict(latmodel)
+      data$ele <- predict(elemodel)
+    } else{
+      data$lon_smth <- predict(lonmodel)
+      data$lat_smth <- predict(latmodel)
+      data$ele_smth <- predict(elemodel)
+    }
     return(data) #return enhanced dataframe
 
   } else{ # if interpolate, generate interpolated route with 1 second difference between points
