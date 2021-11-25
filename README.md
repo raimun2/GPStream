@@ -73,19 +73,19 @@ Data can also be loaded from stream files such as GPX or fit files
 
 ``` r
 
-gpx_stream <- read_stream_file("inst/extdata/activity.gpx")
+gpx_stream <- read_stream("inst/extdata/activity.gpx")
 
 str(gpx_stream)
-#> 'data.frame':    2821 obs. of  4 variables:
-#>  $ lat : num  -32.6 -32.6 -32.6 -32.6 -32.6 ...
-#>  $ lon : num  -71.5 -71.5 -71.5 -71.5 -71.5 ...
-#>  $ ele : num  69.7 73.6 73.8 73.8 74.8 75.2 74.9 74.9 74.7 74.9 ...
-#>  $ time: POSIXct, format: "2019-02-02 14:47:07" "2019-02-02 14:47:12" ...
+#> tibble [2,821 x 4] (S3: tbl_df/tbl/data.frame)
+#>  $ lat : num [1:2821] -32.6 -32.6 -32.6 -32.6 -32.6 ...
+#>  $ lon : num [1:2821] -71.5 -71.5 -71.5 -71.5 -71.5 ...
+#>  $ ele : num [1:2821] 69.7 73.6 73.8 73.8 74.8 75.2 74.9 74.9 74.7 74.9 ...
+#>  $ time: POSIXct[1:2821], format: "2019-02-02 14:47:07" "2019-02-02 14:47:12" ...
 
-fit_stream <- read_stream_file("inst/extdata/activity.fit")
+fit_stream <- read_stream("inst/extdata/activity.fit")
 
 str(fit_stream)
-#> tibble [21,286 x 10] (S3: tbl_df/tbl/data.frame)
+#> tibble [21,286 x 9] (S3: tbl_df/tbl/data.frame)
 #>  $ timestamp         : POSIXct[1:21286], format: "2019-05-11 00:01:22" "2019-05-11 00:01:26" ...
 #>  $ position_lat      : num [1:21286] -33.4 -33.4 -33.4 -33.4 -33.4 ...
 #>   ..- attr(*, "units")= chr "degrees"
@@ -103,8 +103,6 @@ str(fit_stream)
 #>   ..- attr(*, "units")= chr "C"
 #>  $ fractional_cadence: num [1:21286] 0 0 0 0 0 0 0 0 0 0 ...
 #>   ..- attr(*, "units")= chr "rpm"
-#>  $ time              : 'difftime' num [1:21286] 0 4 10 16 ...
-#>   ..- attr(*, "units")= chr "secs"
 ```
 
 As can be seen, not files contains the same naming convention for
@@ -113,19 +111,19 @@ for latitude, longitude, elevation and time signature respectively. This
 convention is implemented in rename\_stream() function.
 
 ``` r
-clean_stream1 <- act_streams %>% rename_stream()
+clean_stream1 <- act_streams %>% uniform_stream()
 
-clean_stream2 <- gpx_stream %>% rename_stream()
+clean_stream2 <- gpx_stream %>% uniform_stream()
 
-clean_stream3 <- fit_stream %>% rename_stream()
+clean_stream3 <- fit_stream %>% uniform_stream()
 
 str(clean_stream2)
-#> 'data.frame':    2821 obs. of  5 variables:
-#>  $ lon      : num  -71.5 -71.5 -71.5 -71.5 -71.5 ...
-#>  $ lat      : num  -32.6 -32.6 -32.6 -32.6 -32.6 ...
-#>  $ ele      : num  69.7 73.6 73.8 73.8 74.8 75.2 74.9 74.9 74.7 74.9 ...
-#>  $ timestamp: POSIXct, format: "2019-02-02 14:47:07" "2019-02-02 14:47:12" ...
-#>  $ time     : num  0 5 10 14 19 23 25 27 31 35 ...
+#> tibble [2,821 x 5] (S3: tbl_df/tbl/data.frame)
+#>  $ lon      : num [1:2821] -71.5 -71.5 -71.5 -71.5 -71.5 ...
+#>  $ lat      : num [1:2821] -32.6 -32.6 -32.6 -32.6 -32.6 ...
+#>  $ ele      : num [1:2821] 69.7 73.6 73.8 73.8 74.8 75.2 74.9 74.9 74.7 74.9 ...
+#>  $ time     : num [1:2821] 0 5 10 14 19 23 25 27 31 35 ...
+#>  $ timestamp: POSIXct[1:2821], format: "2019-02-02 14:47:07" "2019-02-02 14:47:12" ...
 ```
 
 In several occasions elevation readings can be corrupted or missing, so
@@ -195,8 +193,8 @@ streams obtained from physical activities or other sources
 ``` r
 
 clean_stream <- 
-  read_stream_file("inst/extdata/activity.fit") %>% 
-  rename_stream() %>% 
+  read_stream("inst/extdata/activity.fit") %>% 
+  uniform_stream() %>% 
   ele_correction(replace = FALSE) %>% 
   smooth_stream(interpolate = FALSE, alpha = 0.05) %>% 
   differential_stream()

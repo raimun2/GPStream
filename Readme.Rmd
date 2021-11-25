@@ -56,11 +56,11 @@ Data can also be loaded from stream files such as GPX or fit files
 
 ```{r cars}
 
-gpx_stream <- read_stream_file("inst/extdata/activity.gpx")
+gpx_stream <- read_stream("inst/extdata/activity.gpx")
 
 str(gpx_stream)
 
-fit_stream <- read_stream_file("inst/extdata/activity.fit")
+fit_stream <- read_stream("inst/extdata/activity.fit")
 
 str(fit_stream)
 
@@ -69,11 +69,11 @@ str(fit_stream)
 As can be seen, not files contains the same naming convention for coordinates, so we follow the lat, lon, ele, timestamp, time convention for latitude, longitude, elevation and time signature respectively. This convention is implemented in rename_stream() function.
 
 ```{r}
-clean_stream1 <- act_streams %>% rename_stream()
+clean_stream1 <- act_streams %>% uniform_stream()
 
-clean_stream2 <- gpx_stream %>% rename_stream()
+clean_stream2 <- gpx_stream %>% uniform_stream()
 
-clean_stream3 <- fit_stream %>% rename_stream()
+clean_stream3 <- fit_stream %>% uniform_stream()
 
 str(clean_stream2)
 
@@ -115,8 +115,8 @@ In summary, several functions can be combined to read and analyze GPS streams ob
 ```{r, message=FALSE, warning=FALSE}
 
 clean_stream <- 
-  read_stream_file("inst/extdata/activity.fit") %>% 
-  rename_stream() %>% 
+  read_stream("inst/extdata/activity.fit") %>% 
+  uniform_stream() %>% 
   ele_correction(replace = FALSE) %>% 
   smooth_stream(interpolate = FALSE, alpha = 0.05) %>% 
   differential_stream()
