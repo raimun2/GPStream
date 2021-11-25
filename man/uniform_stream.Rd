@@ -2,20 +2,20 @@
 % Please edit documentation in R/uniform_stream.R
 \name{uniform_stream}
 \alias{uniform_stream}
-\title{Rename GPS streams according to convention long, lat, elev, timestamp and time. If variable time is missing, the algorithm will aggregate a variable 'time' defined as seconds from start.
-The algorithm identify some typical names for longitude, latitude, elevation and time. Then raname variables, order it and return a dataframe. If some of this variables is missing or dosen't have a typical name, the return will only have renamed entry variables.}
+\title{Uniform streams into name convention}
 \usage{
 uniform_stream(data)
 }
 \arguments{
-\item{data}{is a dataframe or tibble containing a GPS stream. The stream dataframe can be obtained from rStrva library.(see rStrava documentation)
+\item{data}{is a dataframe or tibble containing a GPS stream. See read_stream documentation
 
 uniform_stream()}
 }
 \value{
-dataframe stream with 'lon', 'lat', 'ele' and 'time' variables.
+dataframe stream with coordinates and optionally elevation, time.
 }
 \description{
-Rename GPS streams according to convention long, lat, elev, timestamp and time. If variable time is missing, the algorithm will aggregate a variable 'time' defined as seconds from start.
-The algorithm identify some typical names for longitude, latitude, elevation and time. Then raname variables, order it and return a dataframe. If some of this variables is missing or dosen't have a typical name, the return will only have renamed entry variables.
+Rename streams according to convention lon (for longitude), lat (for latitude),
+ele (for elevation or altitude), timestamp (for time signature of reading) and time (for seconds from start).
+Other variables such as distance, power, cadence or heartrate are left as they were on original file
 }

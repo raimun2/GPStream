@@ -1,6 +1,10 @@
-#' Title
+#' Spatial and temporal derivatives
 #'
-#' @param data dataframe or tibble containing a GPS stream
+#' @description
+#' Calculates spatial derivatives and if time fiel available, temporal derivatives. This includes
+#' distance, speed, acceleration in vertical, horizontal and total dimension, azimut, slope and pace
+#'
+#' @param data dataframe or tibble containing a GPS stream with at least lon and lat columns.
 #'
 #' @return
 #' @export
@@ -43,9 +47,9 @@ differential_stream <- function(data){
       data$dplus <- ifelse(data$delta_ele>0, data$delta_ele, 0)
       data$dminus <- ifelse(data$delta_ele<0, data$delta_ele, 0)
 
-      data$grade <- ( data$delta_ele / data$delta_distance )
-      data$grade[1] <- 0
-      data[data$delta_distance == 0,]$grade <- 0
+      data$slope <- ( data$delta_ele / data$delta_distance )
+      data$slope[1] <- 0
+      data[data$delta_distance == 0,]$slope <- 0
 
     }
     if(exists("time", data)){

@@ -2,16 +2,17 @@
 % Please edit documentation in R/differential_stream.R
 \name{differential_stream}
 \alias{differential_stream}
-\title{Title}
+\title{Spatial and temporal derivatives}
 \usage{
 differential_stream(data)
 }
 \arguments{
-\item{data}{dataframe or tibble containing a GPS stream}
+\item{data}{dataframe or tibble containing a GPS stream with at least lon and lat columns.}
 }
 \value{
 
 }
 \description{
-Title
+Calculates spatial derivatives and if time fiel available, temporal derivatives. This includes
+distance, speed, acceleration in vertical, horizontal and total dimension, azimut, slope and pace
 }

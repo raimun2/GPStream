@@ -2,20 +2,23 @@
 % Please edit documentation in R/smooth_stream.R
 \name{smooth_stream}
 \alias{smooth_stream}
-\title{Generate model for lon, lat and ele in function of time. For stream without time, uses the GPS reading cumulative count.}
+\title{Smoothed stream coordinates}
 \usage{
 smooth_stream(data, alpha = 0.05, interpolate = FALSE, replace = TRUE)
 }
 \arguments{
-\item{data}{dataframe or tibble containing a GPS stream}
+\item{data}{dataframe or tibble containing a GPS stream with lat, lon and ele columns}
 
-\item{alpha}{smoothing parameter}
+\item{alpha}{smoothing parameter as a percentage of readings used for smoothing.}
 
-\item{interpolate}{binary variable #¿para que?. Default setting on False}
+\item{interpolate}{binary variable, if true generates an interpolated stream with 1 second difference between readins}
+
+\item{replace}{binary variable, if true replaces original fields for smoothed, else, generate new columns. only applies when interpolate is false}
 }
 \value{
-
+dataframe with smoothed coordinates and elevation if available
 }
 \description{
-Generate model for lon, lat and ele in function of time. For stream without time, uses the GPS reading cumulative count.
+Generate model for lon, lat and ele in function of time. For stream without time, uses the GPS reading count.
+Applies local polynomial regression fitting
 }

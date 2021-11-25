@@ -1,9 +1,16 @@
-#' Load GPS streams from a single gpx, kml, kmz, tcx or fit file and stores it in a Tibble
-#' Allows to process files from Strava's bulk export, which includes compressed fit files (*.fit.gz)
+#' Read GPS stream from file
+#'
+#' @description
+#' Reads stream from a single gpx, kml, tcx or fit file and stores it in a Tibble.
+#' Allows to process files from Strava's bulk export, which includes compressed fit
+#' files (.fit.gz) and compressed kml files (.kmz)
+#'
+#' Keeps the original variable names from the raw files
+#'
 #' @param filename The file path
 #' read_stream()
 #'
-#' @return
+#' @return tibble with stream readings
 #' @export
 #'
 read_stream <- function(filename){
@@ -38,8 +45,10 @@ read_stream <- function(filename){
 }
 
 
-#' Read gpx file into stream
-#' more flexible than plotKML function
+#' Read gpx file
+#'
+#' @description
+#' reads and parse gpx from file. supports coordinates, elevation and timestamp
 #'
 #' @param filename The file path to the containing file
 #' read_gpx()
@@ -64,7 +73,7 @@ read_gpx<- function(filename){
     stream$ele = eles
   }
   if(length(times) == length(lats)){
-    stream$time = lubridate::as_datetime(times)
+    stream$timestamp = lubridate::as_datetime(times)
   }
 
   return(stream)

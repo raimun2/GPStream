@@ -2,8 +2,7 @@
 % Please edit documentation in R/read_stream.R
 \name{read_stream}
 \alias{read_stream}
-\title{Load GPS streams from a single gpx, kml, kmz, tcx or fit file and stores it in a Tibble
-Allows to process files from Strava's bulk export, which includes compressed fit files (*.fit.gz)}
+\title{Read GPS stream from file}
 \usage{
 read_stream(filename)
 }
@@ -12,9 +11,12 @@ read_stream(filename)
 read_stream()}
 }
 \value{
-
+tibble with stream readings
 }
 \description{
-Load GPS streams from a single gpx, kml, kmz, tcx or fit file and stores it in a Tibble
-Allows to process files from Strava's bulk export, which includes compressed fit files (*.fit.gz)
+Reads stream from a single gpx, kml, tcx or fit file and stores it in a Tibble.
+Allows to process files from Strava's bulk export, which includes compressed fit
+files (.fit.gz) and compressed kml files (.kmz)
+
+Keeps the original variable names from the raw files
 }

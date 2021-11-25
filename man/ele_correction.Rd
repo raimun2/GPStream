@@ -2,28 +2,24 @@
 % Please edit documentation in R/ele_correction.R
 \name{ele_correction}
 \alias{ele_correction}
-\title{Elevation correction return a stream dataframe  with correction of elevation from a stream data activity.
-The algorithm use ele_correction_point, ele_correction_raster, ele_correction_raster_local functions to calculate the elevation correction.
-Global function if datapoints < 200, retrieve each one, else retrieve raster
-If local raster available, extract elevations directly}
+\title{Obtain elevation values from external source for stream dataframe}
 \usage{
 ele_correction(data, z = 13, raster = NULL, replace = TRUE)
 }
 \arguments{
 \item{data}{dataframe or tibble containing a GPS stream}
 
-\item{z}{zoom of Digital Elevation Model Map}
+\item{z}{zoom of Digital Elevation Model, between 6 and 14}
 
-\item{raster}{raster object with elevations.}
+\item{raster}{raster object with DEM values}
 
-\item{replace}{binary variable. Default value = TRUE. Defines whether to create a new column or replace the altitude by 'ele_DEM'}
+\item{replace}{binary variable. Default value = TRUE. Defines whether to create a new column or replace the raw elevation}
 }
 \value{
 GPS stream dataframe with new variable 'ele_DEM'
 }
 \description{
-Elevation correction return a stream dataframe  with correction of elevation from a stream data activity.
-The algorithm use ele_correction_point, ele_correction_raster, ele_correction_raster_local functions to calculate the elevation correction.
-Global function if datapoints < 200, retrieve each one, else retrieve raster
+Uses SRTM data for obtaining elevation for each reading. Also supports external DEM in raster format.
+If number of readings exceeds 200 points downloads a raster, else downloads each point at a time.
 If local raster available, extract elevations directly
 }

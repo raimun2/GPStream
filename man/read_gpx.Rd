@@ -2,8 +2,7 @@
 % Please edit documentation in R/read_stream.R
 \name{read_gpx}
 \alias{read_gpx}
-\title{Read gpx file into stream
-more flexible than plotKML function}
+\title{Read gpx file}
 \usage{
 read_gpx(filename)
 }
@@ -15,6 +14,5 @@ read_gpx()}
 
 }
 \description{
-Read gpx file into stream
-more flexible than plotKML function
+reads and parse gpx from file. supports coordinates, elevation and timestamp
 }
