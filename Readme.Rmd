@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r, include = FALSE, message = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -56,11 +56,11 @@ Data can also be loaded from stream files such as GPX or fit files
 
 ```{r cars}
 
-gpx_stream <- read_stream("inst/extdata/activity.gpx")
+gpx_stream <- read_stream("inst/extdata/gpx_activity.gpx")
 
 str(gpx_stream)
 
-fit_stream <- read_stream("inst/extdata/activity.fit")
+fit_stream <- read_stream("inst/extdata/fit_activity.fit")
 
 str(fit_stream)
 
@@ -82,7 +82,7 @@ In several occasions elevation readings can be corrupted or missing, so the ele_
 
 ```{r}
 
-correct_elevation <- clean_stream2 %>% ele_correction(replace = FALSE)
+correct_elevation <- clean_stream2 %>% ele_correction(replace = FALSE, z = 14)
 
 ggplot(correct_elevation, aes(x=time)) + 
   geom_line(aes(y=ele)) + 
@@ -94,7 +94,7 @@ In other cases, even lat and lon values can be corrupted and therefore need smoo
 
 ```{r}
 
-smooth_act <- correct_elevation %>% smooth_stream(interpolate = TRUE, alpha = 0.05)
+smooth_act <- correct_elevation %>% smooth_stream(interpolate = TRUE, alpha = 0.01, replace = TRUE)
 
 ggplot(correct_elevation, aes(lon, lat)) + 
   geom_point() + 
@@ -115,14 +115,15 @@ In summary, several functions can be combined to read and analyze GPS streams ob
 ```{r, message=FALSE, warning=FALSE}
 
 clean_stream <- 
-  read_stream("inst/extdata/activity.fit") %>% 
+  read_stream("inst/extdata/fit_activity.fit") %>% 
   uniform_stream() %>% 
   ele_correction(replace = FALSE) %>% 
   smooth_stream(interpolate = FALSE, alpha = 0.05, replace = FALSE) %>% 
   differential_stream()
   
 ggplot(clean_stream, aes(lon,lat)) +
-  geom_point(aes(size=hz_velocity, col=vert_velocity))
+  geom_point(aes(size=abs(slope), col=hz_velocity)) +
+  scale_color_viridis_c()
 
 
 ```

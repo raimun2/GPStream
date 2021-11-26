@@ -1,30 +1,30 @@
-#' Comparar streams
+#' Compare 2 streams
+#'
+#' @description
+#' Evaluates if 2 streams belongs to the same route. Checks for spatial and temporal contiguity
 #'
 #' @param data dataframe or tibble containing a GPS stream
-#' @param route another GPs stream
-#' @param tolerance thershold. Default setting on 20. Unidad de medida?(metros)
+#' @param route another stream / route to be validated
+#' @param tolerance threshold. Default setting on 20 meters
 #'
 #' @return
 #' @export
 #'
 match_stream <- function(data, route, tolerance = 20){
 
-  # extrae bbox ruta
   bbox <- sp::bbox(sp::SpatialPoints(route[,c("lon","lat")]))
 
   route$id <- 1:nrow(route)
   data$id_row <- 1:nrow(data)
 
-  inicio_fin <- route %>% filter(id <= 4 | id >= (nrow(route)-3))
-
+  start_end <- route %>% filter(id == 1 | id == (nrow(route)))
 
   distances <- geosphere::distm(cbind(data$lon,data$lat),
-                                cbind(inicio_fin$lon,inicio_fin$lat),
+                                cbind(start_end$lon,start_end$lat),
                                 fun = geosphere::distHaversine)
 
-
   act_filt <- data %>% filter(id_row >= which(distances[,1] < tolerance)[1],
-                              id_row <= max(which(distances[,6] < tolerance)))
+                              id_row <= max(which(distances[,2] < tolerance)))
 
 
   distances <- geosphere::distm(cbind(act_filt$lon,act_filt$lat),

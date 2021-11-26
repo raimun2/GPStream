@@ -3,14 +3,14 @@
 \docType{data}
 \name{strava_metadata}
 \alias{strava_metadata}
-\title{Prices of 50,000 round cut diamonds.}
+\title{Activity metadata for 12 activities from strava}
 \format{
-A data frame with 53940 rows and 10 variables:
+A data frame with 12 rows and 61 variables:
 \describe{
 \item{achievement_count}{The number of achievements gained during this activity, integer value}
 \item{athlete.id}{The unique identifier of the athlete, integer value}
-\item{athlete.resource_state}{Indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail", integer value (1,2,3)}
-\item{athlete_count}{The number of unique athletes who have an effort for this segment, integer value} #hay 2 posibles
+\item{athlete.resource_state}{Indicates level of detail}
+\item{athlete_count}{The number of unique athletes who have an effort for this segment, integer value}
 \item{average_cadence}{The effort's average cadence, in steps/cycles per minute}
 \item{average_heartrate}{The heartrate of the athlete during the effort, in beats per minute}
 \item{average_speed}{The activity's average speed, in meters per second}
@@ -19,9 +19,7 @@ A data frame with 53940 rows and 10 variables:
 \item{comment_count}{The number of comments for this activity, integer value}
 \item{commute}{Whether this activity is a commute, boolean value}
 \item{device_watts}{Whether the wattage was reported by a dedicated recording device, boolean}
-
-\item{display_hide_heartrate_option}{weight of the diamond, in carats}
-
+\item{display_hide_heartrate_option}{whether heartrate is displayed or not}
 \item{distance}{cumulative distance of the trajectoty, in meters}
 \item{elapsed_time}{The total elapsed time of the considered activities, in seconds}
 \item{elev_high}{The activity's highest elevation, in meters}
@@ -30,45 +28,36 @@ A data frame with 53940 rows and 10 variables:
 \item{end_latlng2}{Coordinates of the end of the activity, in sexagesimal degrees}
 \item{external_id}{The desired external identifier of the resulting activity, integer value}
 \item{flagged}{Whether this activity is flagged, boolean}
-
-\item{from_accepted_tag}{weight of the diamond, in carats}
-
-\item{gear_id}{Identifier for the gear associated with the activity. ‘none’ clears gear from activity, string value}
+\item{from_accepted_tag}{correct xml tag}
+\item{gear_id}{Identifier for the gear associated with the activity}
 \item{has_heartrate}{Whether the activity has heartrate, boolean}
 \item{has_kudoed}{Whether the logged-in athlete has kudoed this activity, boolean}
-
-\item{heartrate_opt_out}{weight of the diamond, in carats}
-
+\item{heartrate_opt_out}{whether heartrate is discarded}
 \item{id}{The unique identifier of the activity, integer value}
 \item{kilojoules}{The total work done during this activity. Rides only, in kilojoules}
 \item{kudos_count}{The number of kudos given for this activity, integer value}
-\item{location_city}{The athlete's city, string}
-\item{location_country}{The athlete's country, string}
-\item{location_state}{The athlete's state or geographical region, string}
+\item{location_city}{The athletes city, string}
+\item{location_country}{The athletes country, string}
+\item{location_state}{The athletes state or geographical region, string}
 \item{manual}{Whether this activity was created manually, boolean}
 \item{map.id}{The identifier of the map, string}
-\item{map.resource_state}{resource state, indicates level of detail of the map. Possible values: 2 -> "summary", 3 -> "detail", integer value}
-
-\item{map.summary_polyline}{weight of the diamond, in carats}
+\item{map.resource_state}{resource state, indicates level of detail of the map}
+\item{map.summary_polyline}{sumary polyline}
 \item{max_heartrate}{The maximum heart rate of the athlete during this effort,in beats per minute}
-\item{max_speed}{The activity's max speed, in meters per second}
-\item{moving_time}{The activity's total moving time, in seconds}
+\item{max_speed}{The activity max speed, in meters per second}
+\item{moving_time}{The activity total moving time, in seconds}
 \item{name}{The name of the activity, string}
 \item{photo_count}{The number of Instagram photos for this activity, integer value}
-
-\item{pr_count}{weight of the diamond, in carats}
-
+\item{pr_count}{personal records count}
 \item{private}{Whether this route is private, boolean}
-\item{resource_state}{Resource state, indicates level of detail. Possible values: 2 -> "summary", 3 -> "detail"}
+\item{resource_state}{Resource state, indicates level of detail}
 \item{start_date}{The time at which the effort was started, in Date format}
 \item{start_date_local}{The time at which the effort was started in the local timezone, in Date format}
-\item{start_latitude}{Latitude coordinate of the start of the activity,in sexagesimal degrees}
+\item{start_latitude}{Latitude coordinate of the start of the activity, in sexagesimal degrees}
 \item{start_latlng1}{Coordinates of the start of the activity, in sexagesimal degrees}
 \item{start_latlng2}{Coordinates of the start of the activity, in sexagesimal degrees}
-\item{start_longitude}Longitude coordinate of the start of the activity,in sexagesimal degrees}
-
-\item{suffer_score}{weight of the diamond, in carats}
-
+\item{start_longitude}{Longitude coordinate of the start of the activity, in sexagesimal degrees}
+\item{suffer_score}{suffer score from trimp model}
 \item{timezone}{The timezone of the activity, string}
 \item{total_elevation_gain}{The elevation gain of this lap, in meters}
 \item{total_photo_count}{The number of Instagram and Strava photos for this activity, integer value}
@@ -79,17 +68,15 @@ A data frame with 53940 rows and 10 variables:
 \item{utc_offset}{The UTC offset is the difference between Coordinated Universal Time, in hours and minutes}
 \item{visibility}{Athlete profile visibility, boolean}
 \item{workout_type}{The activity's workout type, string}
-...
 }
 }
 \source{
-\url{http://www.diamondse.info/}
+\url{https://developers.strava.com/docs/reference/}
 }
 \usage{
 strava_metadata
 }
 \description{
-A dataset containing the prices and other attributes of almost 54,000
-diamonds.
+A dataset containing summary statistic from activities stored in Strava
 }
 \keyword{datasets}

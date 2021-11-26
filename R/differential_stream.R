@@ -6,7 +6,7 @@
 #'
 #' @param data dataframe or tibble containing a GPS stream with at least lon and lat columns.
 #'
-#' @return
+#' @return dataframe with additional columns
 #' @export
 #'
 differential_stream <- function(data){

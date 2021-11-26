@@ -2,20 +2,20 @@
 % Please edit documentation in R/match_stream.R
 \name{match_stream}
 \alias{match_stream}
-\title{Comparar streams}
+\title{Compare 2 streams}
 \usage{
 match_stream(data, route, tolerance = 20)
 }
 \arguments{
 \item{data}{dataframe or tibble containing a GPS stream}
 
-\item{route}{another GPs stream}
+\item{route}{another stream / route to be validated}
 
-\item{tolerance}{thershold. Default setting on 20. Unidad de medida?(metros)}
+\item{tolerance}{threshold. Default setting on 20 meters}
 }
 \value{
 
 }
 \description{
-Comparar streams
+Evaluates if 2 streams belongs to the same route. Checks for spatial and temporal contiguity
 }

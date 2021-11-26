@@ -10,7 +10,7 @@ differential_stream(data)
 \item{data}{dataframe or tibble containing a GPS stream with at least lon and lat columns.}
 }
 \value{
-
+dataframe with additional columns
 }
 \description{
 Calculates spatial derivatives and if time fiel available, temporal derivatives. This includes
