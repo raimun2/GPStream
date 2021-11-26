@@ -16,29 +16,32 @@
 
 ele_correction <- function(data, z = 13, raster=NULL, replace=TRUE){
 
-  # define map projection
-  ll_prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
+  if(exists("lat", data) & exists("lon", data)){
+    ll_prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
 
-  # generate spatial data frame with coordinates
-  puntos = sp::SpatialPointsDataFrame(coords = data.frame(cbind(data$lon, data$lat)),
-                                      data = data.frame(cbind(data$lon, data$lat)),
-                                      proj4string = sp::CRS(ll_prj))
+    puntos = sp::SpatialPointsDataFrame(coords = data.frame(cbind(data$lon, data$lat)),
+                                        data = data.frame(cbind(data$lon, data$lat)),
+                                        proj4string = sp::CRS(ll_prj))
 
-  if(is.null(raster)){
-    if(nrow(data)<200){
-      ele_DEM <- elevatr::get_elev_point(locations = puntos, units = "meters", src="aws", z=z)@data$elevation
+    if(is.null(raster)){
+      if(nrow(data)<200){
+        ele_DEM <- elevatr::get_elev_point(locations = puntos, units = "meters", src="aws", z=z)@data$elevation
       } else {
-      raster <- elevatr::get_elev_raster(locations = puntos, units = "meters",src="aws",z=z)
+        raster <- elevatr::get_elev_raster(locations = puntos, units = "meters",src="aws",z=z)
+        ele_DEM <- raster::extract(raster, puntos)
+      }
+    } else {
       ele_DEM <- raster::extract(raster, puntos)
     }
-  } else {
-    ele_DEM <- raster::extract(raster, puntos)
+
+    if(replace){
+      data$ele <- ele_DEM
+    } else {
+      data$ele_DEM <- ele_DEM
+    }
+    return(data)
+  } else{
+    message("data must have lon and lat coordinates")
   }
 
-  if(replace){
-    data$ele <- ele_DEM
-  } else {
-    data$ele_DEM <- ele_DEM
-  }
-  return(data)
 }

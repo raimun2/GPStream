@@ -110,6 +110,18 @@ diff_stream <- smooth_act %>% differential_stream()
 str(diff_stream)
 
 ```
+We can also compare two streams to check if they correspond to the same route. The match stream function checks the spatial and sequential continuity of a stream with respect to a reference stream.
+
+
+```{r}
+
+match_stream()
+
+```
+
+
+
+
 In summary, several functions can be combined to read and analyze GPS streams obtained from physical activities or other sources
 
 ```{r, message=FALSE, warning=FALSE}
@@ -127,4 +139,3 @@ ggplot(clean_stream, aes(lon,lat)) +
 
 
 ```
-
