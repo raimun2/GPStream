@@ -4,7 +4,7 @@
 \alias{match_stream}
 \title{Compare 2 streams}
 \usage{
-match_stream(data, route, tolerance = 20)
+match_stream(data, route, tolerance = 50)
 }
 \arguments{
 \item{data}{dataframe or tibble containing a GPS stream}
@@ -14,8 +14,9 @@ match_stream(data, route, tolerance = 20)
 \item{tolerance}{threshold. Default setting on 20 meters}
 }
 \value{
-
+either coordinates of match section(s) of data or character with explanation of mismatch
 }
 \description{
-Evaluates if 2 streams belongs to the same route. Checks for spatial and temporal contiguity
+Evaluates if 2 streams belongs to the same route. Checks for distance to start and end of route, for completion of track
+and for staying on the right track
 }

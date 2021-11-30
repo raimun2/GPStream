@@ -112,14 +112,11 @@ str(diff_stream)
 ```
 We can also compare two streams to check if they correspond to the same route. The match stream function checks the spatial and sequential continuity of a stream with respect to a reference stream.
 
-
 ```{r}
 
-match_stream()
+match_stream(clean_stream1, clean_stream2)
 
 ```
-
-
 
 
 In summary, several functions can be combined to read and analyze GPS streams obtained from physical activities or other sources

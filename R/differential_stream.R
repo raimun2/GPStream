@@ -25,15 +25,16 @@ differential_stream <- function(data){
                                                     cbind(data$lon_p2,data$lat_p2))
     data$delta_distance[1] <- 0
 
-    # calculate cumulative distance in kms
-    data$distance <- cumsum(data$delta_distance) / 1000
+    # calculate cumulative distance
+    data$distance <- cumsum(data$delta_distance)
 
     # calculate azimuthal angle
     vector1 <- cbind(data$lon-data$lon_p2, data$lat-data$lat_p2)
-    vector2 <- cbind(data$lon_p3-data$lon_p2,data$lat_p3-data$lat_p2)
+    vector2 <- cbind(data$lon_p3-data$lon_p2, data$lat_p3-data$lat_p2)
     num <- vector1[,1]*vector2[,1] + vector1[,2]*vector2[,2]
     den <- sqrt(vector1[,1]^2 + vector1[,2]^2)*sqrt(vector2[,1]^2 + vector2[,2]^2)
-    data$azimuth <- ifelse(den == 0, 180, (360*acos(num/den))/(2*pi) )
+    data$azimuth <- suppressWarnings(ifelse(den == 0, 180, (360*acos(num/den))/(2*pi)))
+    data$azimuth[is.na(data$azimuth)] <- 180
 
     data$lat_p2 <- NULL
     data$lon_p2 <- NULL
