@@ -37,7 +37,7 @@ analyze data from a GPS stream. The development version from
 [GitHub](https://github.com/) can be installed and loaded as follows:
 
 ``` r
-# install.packages("pacman")
+# install.packages("remotes")
 remotes::install_github(GPStream)
 ```
 
@@ -104,7 +104,7 @@ str(fit_stream)
 #>   ..- attr(*, "units")= chr "rpm"
 ```
 
-As can be seen, not files contains the same naming convention for
+As can be seen, not all files contains the same naming convention for
 coordinates, so we follow the lat, lon, ele, timestamp, time convention
 for latitude, longitude, elevation and time signature respectively. This
 convention is implemented in rename\_stream() function.
