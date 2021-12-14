@@ -23,7 +23,7 @@ library(tidyverse)
 
 The goal of GPStream is to process GPS generated data such as used in sports apps and wearable devices. You can find functions to load the data and process it. The package can read streams of GPS readings, consisting in latitude, longitude, elevation and time and compute several features for each measure. 
 
-GPS data streams can be obtained several ways. The most common file format is GPX files, an XML variant for GPS readings, but fit files (from Garmin devices) is also supported. Some sports apps like strava offers API services from which streams can be obtained. 
+GPS data streams can be obtained several ways. The most common file format is GPX files, an XML variant for GPS readings, but fit files (from Garmin devices) and KML files are also supported. Some sports apps like strava offers API services from which streams can be obtained. 
 
 For more information about gathering GPX/fit files from strava follow the steps described by [marcusvolz/strava](https://github.com/marcusvolz/strava)
 
@@ -36,8 +36,8 @@ This package contains raw files and sample data as it comes from the latter alte
 This is the development repository for GPS_stream, an R package to analyze data from a GPS stream. The development version from [GitHub](https://github.com/) can be installed and loaded as follows:
 
 ``` r
-# install.packages("pacman")
-remotes::install_github(GPStream)
+# install.packages("remotes")
+remotes::install_github("raimun2/GPStream")
 ```
 ## Example
 
@@ -66,7 +66,7 @@ str(fit_stream)
 
 ```
 
-As can be seen, not files contains the same naming convention for coordinates, so we follow the lat, lon, ele, timestamp, time convention for latitude, longitude, elevation and time signature respectively. This convention is implemented in rename_stream() function.
+As can be seen, not all files contains the same naming convention for coordinates, so we follow the lat, lon, ele, timestamp, time convention for latitude, longitude, elevation and time signature respectively. This convention is implemented in rename_stream() function.
 
 ```{r}
 clean_stream1 <- act_streams %>% uniform_stream()

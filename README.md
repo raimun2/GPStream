@@ -15,8 +15,8 @@ several features for each measure.
 
 GPS data streams can be obtained several ways. The most common file
 format is GPX files, an XML variant for GPS readings, but fit files
-(from Garmin devices) is also supported. Some sports apps like strava
-offers API services from which streams can be obtained.
+(from Garmin devices) and KML files are also supported. Some sports apps
+like strava offers API services from which streams can be obtained.
 
 For more information about gathering GPX/fit files from strava follow
 the steps described by
@@ -38,7 +38,7 @@ analyze data from a GPS stream. The development version from
 
 ``` r
 # install.packages("remotes")
-remotes::install_github(GPStream)
+remotes::install_github("raimun2/GPStream")
 ```
 
 ## Example
