@@ -11,7 +11,7 @@ match_stream(data, route, tolerance = 50)
 
 \item{route}{another stream / route to be validated}
 
-\item{tolerance}{threshold. Default setting on 20 meters}
+\item{tolerance}{threshold. Default setting on 50 meters}
 }
 \value{
 either coordinates of match section(s) of data or character with explanation of mismatch

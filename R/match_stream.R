@@ -6,7 +6,7 @@
 #'
 #' @param data dataframe or tibble containing a GPS stream
 #' @param route another stream / route to be validated
-#' @param tolerance threshold. Default setting on 20 meters
+#' @param tolerance threshold. Default setting on 50 meters
 #'
 #' @return either coordinates of match section(s) of data or character with explanation of mismatch
 #' @export
@@ -14,7 +14,7 @@
 match_stream <- function(data, route, tolerance = 50){
   matchs <- NULL
   tolerance_completion <- 0
-  tolerance_sentido <- .03
+  tolerance_direction <- .03
 
   if(exists("lat",data) & exists("lon", data) & exists("lat", route) & exists("lon", route)){
 
@@ -84,9 +84,11 @@ match_stream <- function(data, route, tolerance = 50){
             dist_ord <- (mean(diag(geosphere::distm(cbind(order_data$lon,order_data$lat),
                              cbind(order_route$lon,order_route$lat),
                              fun = geosphere::distHaversine))))
-            if(mean(inter_subpts_rt)>=(1-tolerance_sentido)){
+            if(mean(inter_subpts_rt)>=(1-tolerance_direction)){
               if(dist_ord < 500){
-                matchs <- rbind(matchs,c(pass_start[i], nrow(sub_data), dist_ord))
+
+                matchs <- rbind(matchs,
+                                c(pass_start[i], nrow(sub_data))) #returns position and length of match within data
 
               } else {
                 matchs <- paste0("stream match in reverse order")

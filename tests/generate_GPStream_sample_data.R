@@ -38,3 +38,48 @@
 #   strs <- plyr::rbind.fill(strs, stream)
 #
 # }
+
+# library(GPStream)
+# library(tidyverse)
+#
+#
+# clean_stream1 <- act_streams %>% uniform_stream() %>% differential_stream()
+#
+# strems_segmentation <- clean_stream2 %>% differential_stream()
+#
+# agg_stream(strems_segmeation)
+#
+# a2 <- agg_stream(clean_stream2 %>% differential_stream())
+#
+# clean_stream2 <-  read_stream("inst/extdata/gpx_activity.gpx") %>% uniform_stream()
+#
+# match_stream(clean_stream1, clean_stream2)
+#
+#
+#
+#
+# strs <- strava_streams %>% uniform_stream() %>% differential_stream()
+#
+# for(act1 in unique(strs$id)){
+#   subi <- strs %>% filter(id == act1)
+#   for(act2 in unique(strs$id)){
+#     subj <- strs %>% filter(id == act2)
+#     if(act1!=act2){
+#
+#       m <- match_stream(subi, subj)
+#       if(is.matrix(m)){
+#         (ggplot(mapping=aes(lon,lat)) +
+#           geom_point(data=subi, col="red") +
+#           geom_point(data=subj, col="blue", size=0.7) )
+#       }
+#
+#     }
+#   }
+# }
+#
+# data <- subi
+# route <- subj
+#
+# match_stream(data, route)
+
+
