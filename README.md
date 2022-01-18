@@ -31,7 +31,7 @@ corresponding to activities recorded by the author
 
 ### Overview and installation
 
-This is the development repository for GPS_stream, an R package to
+This is the development repository for GPStream, an R package to
 analyze data from a GPS stream. The development version from
 [GitHub](https://github.com/) can be installed and loaded as follows:
 
@@ -92,7 +92,7 @@ str(fit_stream)
 As can be seen, not all files contains the same naming convention for
 coordinates, so we follow the lat, lon, ele, timestamp, time convention
 for latitude, longitude, elevation and time signature respectively. This
-convention is implemented in rename_stream() function.
+convention is implemented in uniform_stream() function.
 
 ``` r
 clean_stream1 <- act_streams %>% uniform_stream() %>% filter(id == unique(act_streams$id)[1])
