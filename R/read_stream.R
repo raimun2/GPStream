@@ -15,12 +15,14 @@
 #'
 read_stream <- function(filename){
   # if file ends in "*fit.gz" or "kmz", then unzip it, maintaining the original file
-  if(length(grep(".fit.gz",filename))==1) {
+  if(length(grep(".gz$",filename))==1) {
     tempdir <- tempdir()
     tempfile <- file.path(tempdir,  basename(filename))
-    file.copy(from = filename, to   = tempfile)
-    R.utils::gunzip(tempfile, overwrite = TRUE)
-    filename <- list.files(tempdir, gsub(".gz$","",basename(filename)) , full.names = T)
+    file.copy(from = filename, to   = tempfile, overwrite = TRUE)
+    if(is.null(list.files(tempdir, basename(filename) , full.names = T))){
+      R.utils::gunzip(tempfile, overwrite = TRUE)
+    }
+    filename <- list.files(tempdir, basename(filename) , full.names = T)
   } else if(length(grep(".kmz",filename))==1){
     tmpdir <- tempdir()
     filename <- unzip(filename, exdir = tmpdir)
@@ -38,11 +40,16 @@ read_stream <- function(filename){
     stream_df <- do.call("rbind", maptools::getKMLcoordinates(filename))
     colnames(stream_df)[1:ncol(stream_df)] <- c("lon", "lat", "ele")[1:ncol(stream_df)]
   } else if(length(grep(".tcx$",filename))==1) {
-    doc <- XML::xmlParse(filename)
+    require(plyr)
+    lines   <- readLines(filename)
+    lines[1] <- gsub("^(.*?)[<]", "<", lines[1])
+    doc <- XML::xmlParse(lines)
     nodes <- XML::getNodeSet(doc, "//ns:Trackpoint", "ns")
     rows <-  lapply(nodes, function(x) data.frame(XML::xmlToList(x) ))
-    stream_df <- do.call("rbind", rows)
-  } else {
+    stream_df <- do.call("rbind.fill", rows)
+  }
+
+  if(is.null(stream_df)) {
     message("unsupported format, see https://www.alltrails.com/converter")
   }
   return(stream_df %>% tibble::as_tibble()) #return tibble with file stream
