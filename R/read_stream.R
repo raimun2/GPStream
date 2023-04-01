@@ -19,8 +19,8 @@ read_stream <- function(filename){
     tempdir <- tempdir()
     tempfile <- file.path(tempdir,  basename(filename))
     file.copy(from = filename, to   = tempfile, overwrite = TRUE)
-    if(is.null(list.files(tempdir, basename(filename) , full.names = T))){
-      R.utils::gunzip(tempfile, overwrite = TRUE)
+    if(is.null(list.files(tempdir, basename(filename) , full.names = T))==FALSE){
+      filename <- R.utils::gunzip(tempfile, overwrite = TRUE)
     }
     filename <- list.files(tempdir, basename(filename) , full.names = T)
   } else if(length(grep(".kmz",filename))==1){
@@ -69,8 +69,8 @@ read_stream <- function(filename){
 #'
 read_gpx<- function(filename){
   pfile <- XML::htmlTreeParse(file = filename,
-                             error = function(...) { },
-                             useInternalNodes = T)
+                              error = function(...) { },
+                              useInternalNodes = T)
 
   eles <-    as.numeric(XML::xpathSApply(pfile, path = "//trkpt/ele|//rtept/ele", XML::xmlValue))
   times <-   XML::xpathSApply(pfile, path = "//trkpt/time|//rtept/time", XML::xmlValue)
@@ -89,5 +89,4 @@ read_gpx<- function(filename){
 
   return(stream)
 }
-
 
