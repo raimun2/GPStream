@@ -1,9 +1,9 @@
 #' Read GPS stream from file
 #'
 #' @description
-#' Reads stream from a single gpx, kml, tcx or fit file and stores it in a Tibble.
+#' Reads stream from a single gpx, tcx or fit file and stores it in a Tibble.
 #' Allows to process files from Strava's bulk export, which includes compressed fit
-#' files (.fit.gz) and compressed kml files (.kmz)
+#' files (.fit.gz)
 #'
 #' Keeps the original variable names from the raw files
 #'
@@ -14,7 +14,7 @@
 #' @export
 #'
 read_stream <- function(filename){
-  # if file ends in "*fit.gz" or "kmz", then unzip it, maintaining the original file
+  # if file ends in "*fit.gz" then unzip it, maintaining the original file
   if(length(grep(".gz$",filename))==1) {
     tempdir <- tempdir()
     tempfile <- file.path(tempdir,  basename(filename))
@@ -23,10 +23,8 @@ read_stream <- function(filename){
       filename <- R.utils::gunzip(tempfile, overwrite = TRUE)
     }
     filename <- list.files(tempdir, basename(filename) , full.names = T)
-  } else if(length(grep(".kmz",filename))==1){
-    tmpdir <- tempdir()
-    filename <- unzip(filename, exdir = tmpdir)
   }
+
   # if fit file (including uncompressed file) use FITfileR library
   if(length(grep(".fit$",filename))==1){
     file_data <- FITfileR::readFitFile(filename)
@@ -36,9 +34,6 @@ read_stream <- function(filename){
     }
   } else if(length(grep(".gpx$",filename))==1) {
     stream_df <- read_gpx(filename)
-  } else if(length(grep(".kml$",filename))==1) {
-    stream_df <- do.call("rbind", maptools::getKMLcoordinates(filename))
-    colnames(stream_df)[1:ncol(stream_df)] <- c("lon", "lat", "ele")[1:ncol(stream_df)]
   } else if(length(grep(".tcx$",filename))==1) {
     require(plyr)
     lines   <- readLines(filename)

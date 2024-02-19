@@ -4,7 +4,7 @@
 \alias{agg_stream}
 \title{Aggregate segments}
 \usage{
-agg_stream(data, size = 100, value = "distance", windowed = TRUE)
+agg_stream(data, size = 100, value = "time", windowed = TRUE)
 }
 \arguments{
 \item{data}{dataframe or tibble containing a GPS stream}
@@ -14,9 +14,6 @@ agg_stream(data, size = 100, value = "distance", windowed = TRUE)
 \item{value}{time or distance of the size}
 
 \item{windowed}{if it uses rolling window to generate segments.}
-}
-\value{
-
 }
 \description{
 Aggregate segments

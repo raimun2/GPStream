@@ -14,9 +14,9 @@ read_stream()}
 tibble with stream readings
 }
 \description{
-Reads stream from a single gpx, kml, tcx or fit file and stores it in a Tibble.
+Reads stream from a single gpx, tcx or fit file and stores it in a Tibble.
 Allows to process files from Strava's bulk export, which includes compressed fit
-files (.fit.gz) and compressed kml files (.kmz)
+files (.fit.gz)
 
 Keeps the original variable names from the raw files
 }

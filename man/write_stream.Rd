@@ -11,9 +11,6 @@ write_stream(data, file)
 
 \item{file}{name of the file}
 }
-\value{
-
-}
 \description{
 Write stream
 }

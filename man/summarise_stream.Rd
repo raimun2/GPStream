@@ -9,9 +9,6 @@ summarise_stream(data)
 \arguments{
 \item{data}{dataframe or tibble containing a stream segment}
 }
-\value{
-
-}
 \description{
 Summarise segment
 }

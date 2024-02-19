@@ -4,7 +4,7 @@
 \alias{rolling_window}
 \title{Rolling window segment}
 \usage{
-rolling_window(data, size = 100, value = "distance")
+rolling_window(data, size = 100, value = "time")
 }
 \arguments{
 \item{data}{dataframe or tibble containing a GPS stream}
@@ -12,9 +12,6 @@ rolling_window(data, size = 100, value = "distance")
 \item{size}{split size}
 
 \item{value}{time or distance of the size}
-}
-\value{
-
 }
 \description{
 Rolling window segment

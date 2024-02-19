@@ -23,6 +23,9 @@ summarise_stream <- function(data){
                     time = mean(time),
                     distance = mean(distance),
                     ele = mean(ele),
+                    cad = mean(cadence),
+                    sd_cad = sd(cadence),
+                    HR = mean(heartrate),
                     speed = delta_distance / delta_time)
       }
       if(!exists("delta_time", data)){
@@ -54,7 +57,7 @@ summarise_stream <- function(data){
 #' @return
 #' @export
 #'
-rolling_window <- function(data, size = 100, value = "distance"){
+rolling_window <- function(data, size = 100, value = "time"){
 
   windowed_data <- NULL
   if(value=="distance"){
@@ -89,7 +92,7 @@ rolling_window <- function(data, size = 100, value = "distance"){
 #' @export
 #'
 
-agg_stream = function(data, size = 100, value = "distance", windowed = TRUE){
+agg_stream = function(data, size = 100, value = "time", windowed = TRUE){
 
   if(windowed){
     segments <- rolling_window(data, size, value)

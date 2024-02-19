@@ -10,9 +10,6 @@ read_gpx(filename)
 \item{filename}{The file path to the containing file
 read_gpx()}
 }
-\value{
-
-}
 \description{
 reads and parse gpx from file. supports coordinates, elevation and timestamp
 }

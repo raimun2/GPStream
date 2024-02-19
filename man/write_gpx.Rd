@@ -11,9 +11,6 @@ write_gpx(data, file = "file.gpx")
 
 \item{file}{name of the file}
 }
-\value{
-
-}
 \description{
 Write stream into GPX file
 }
